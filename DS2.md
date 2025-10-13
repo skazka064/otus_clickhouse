@@ -129,7 +129,7 @@ Ok.
 0 rows in set. Elapsed: 8.565 sec. Processed 3.00 million rows, 244.69 MB (350.29 thousand rows/s., 28.57 MB/s.)
 Peak memory usage: 252.58 MiB.
 ```
-#### Выборка
+## Выборка
 ```clickhouse-node.ru-central1.internal :) select * from nyc_taxi.trips_small limit 5;
 
 SELECT *

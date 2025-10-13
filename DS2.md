@@ -241,3 +241,24 @@ dropoff_ntaname:   Hudson Yards-Chelsea-Flatiron-Union Square
 5 rows in set. Elapsed: 0.008 sec.
 
 ```
+
+## Отправьте скриншоты работающего инстанса ClickHouse, созданной виртуальной машины (если выполняете работу в ЯО) и результата запроса: select count() from trips where payment_type = 1.
+
+```
+clickhouse-node.ru-central1.internal :) select count(*) from nyc_taxi.trips_small where payment_type=1;
+
+SELECT count(*)
+FROM nyc_taxi.trips_small
+WHERE payment_type = 1
+
+Query id: d63de8ad-7a8f-4eea-b206-caef8552e4a2
+
+   ┌─count()─┐
+1. │ 1850287 │ -- 1.85 million
+   └─────────┘
+
+1 row in set. Elapsed: 0.012 sec. Processed 3.00 million rows, 3.00 MB (241.72 million rows/s., 241.72 MB/s.)
+Peak memory usage: 465.18 KiB.
+
+clickhouse-node.ru-central1.internal :)
+```

@@ -129,4 +129,115 @@ Ok.
 0 rows in set. Elapsed: 8.565 sec. Processed 3.00 million rows, 244.69 MB (350.29 thousand rows/s., 28.57 MB/s.)
 Peak memory usage: 252.58 MiB.
 ```
+#### Выборка
+```clickhouse-node.ru-central1.internal :) select * from nyc_taxi.trips_small limit 5;
 
+SELECT *
+FROM nyc_taxi.trips_small
+LIMIT 5
+
+Query id: c8230c8c-6c2f-41d5-b5b7-8e2d4cf434ca
+
+Row 1:
+──────
+trip_id:           1201746944 -- 1.20 billion
+pickup_datetime:   2015-07-01 00:00:12
+dropoff_datetime:  2015-07-01 00:08:33
+pickup_longitude:  -73.9787368774414
+pickup_latitude:   40.78765869140625
+dropoff_longitude: -73.96562194824219
+dropoff_latitude:  40.80792999267578
+passenger_count:   1
+trip_distance:     1.78
+fare_amount:       8.5
+extra:             0.5
+tip_amount:        1.96
+tolls_amount:      0
+total_amount:      11.76
+payment_type:      CSH
+pickup_ntaname:    Upper West Side
+dropoff_ntaname:   Morningside Heights
+
+Row 2:
+──────
+trip_id:           1200864931 -- 1.20 billion
+pickup_datetime:   2015-07-01 00:00:13
+dropoff_datetime:  2015-07-01 00:14:41
+pickup_longitude:  -73.99046325683594
+pickup_latitude:   40.746116638183594
+dropoff_longitude: -73.97918701171875
+dropoff_latitude:  40.78467559814453
+passenger_count:   5
+trip_distance:     3.54
+fare_amount:       13.5
+extra:             0.5
+tip_amount:        1
+tolls_amount:      0
+total_amount:      15.8
+payment_type:      CSH
+pickup_ntaname:    Midtown-Midtown South
+dropoff_ntaname:   Upper West Side
+
+Row 3:
+──────
+trip_id:           1200018648 -- 1.20 billion
+pickup_datetime:   2015-07-01 00:00:16
+dropoff_datetime:  2015-07-01 00:02:57
+pickup_longitude:  -73.78358459472656
+pickup_latitude:   40.648677825927734
+dropoff_longitude: -73.80242919921875
+dropoff_latitude:  40.64767837524414
+passenger_count:   1
+trip_distance:     1.45
+fare_amount:       6
+extra:             0.5
+tip_amount:        0
+tolls_amount:      0
+total_amount:      7.3
+payment_type:      CRE
+pickup_ntaname:    Airport
+dropoff_ntaname:   Airport
+
+Row 4:
+──────
+trip_id:           1201452450 -- 1.20 billion
+pickup_datetime:   2015-07-01 00:00:20
+dropoff_datetime:  2015-07-01 00:11:07
+pickup_longitude:  -73.98579406738281
+pickup_latitude:   40.72777557373047
+dropoff_longitude: -74.00482177734375
+dropoff_latitude:  40.73748779296875
+passenger_count:   5
+trip_distance:     1.56
+fare_amount:       8.5
+extra:             0.5
+tip_amount:        1.96
+tolls_amount:      0
+total_amount:      11.76
+payment_type:      CSH
+pickup_ntaname:    East Village
+dropoff_ntaname:   West Village
+
+Row 5:
+──────
+trip_id:           1202368372 -- 1.20 billion
+pickup_datetime:   2015-07-01 00:00:40
+dropoff_datetime:  2015-07-01 00:05:46
+pickup_longitude:  -74.00206756591797
+pickup_latitude:   40.73833084106445
+dropoff_longitude: -74.00658416748047
+dropoff_latitude:  40.74875259399414
+passenger_count:   2
+trip_distance:     1
+fare_amount:       6
+extra:             0.5
+tip_amount:        0
+tolls_amount:      0
+total_amount:      7.3
+payment_type:      CRE
+pickup_ntaname:    West Village
+dropoff_ntaname:   Hudson Yards-Chelsea-Flatiron-Union Square
+
+5 rows in set. Elapsed: 0.008 sec.
+
+```

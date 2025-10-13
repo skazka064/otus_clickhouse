@@ -293,6 +293,45 @@ localhost:9000, queries: 10, QPS: 29.207, RPS: 58413620.933, MiB/s: 445.661, res
 ## Настройте систему с учётом характеристик вашей ОС, оптимизируйте параметры и выполните повторное тестирование
 ## Подготовьте отчёт о приросте/изменении производительности системы на основе проведённых настроек. Укажите явно, какие параметры были изменены и почему
 
+```
+ <max_server_memory_usage>6000000000</max_server_memory_usage>
+ <max_concurrent_queries>200</max_concurrent_queries>
+
+<uncompressed_cache_size>8589934592</uncompressed_cache_size>
+ <uncompressed_cache_size>1073741824</uncompressed_cache_size>
+
+ <!-- <5368709120mark_cache_size>5368709120</mark_cache_size> -->
+ <mark_cache_size>536870912</mark_cache_size>
+
+root@clickhouse-node:/home/yc-user# echo "select * from system.numbers limit 1000000 offset 1000000" | clickhouse-benchmark -h localhost --port 9000 -i 10
+Loaded 1 queries.
+
+Queries executed: 10 (100%).
+
+localhost:9000, queries: 10, QPS: 30.037, RPS: 60073894.916, MiB/s: 458.327, result RPS: 30036947.458, result MiB/s: 229.164.
+
+0%              0.019 sec.
+10%             0.019 sec.
+20%             0.019 sec.
+30%             0.019 sec.
+40%             0.019 sec.
+50%             0.019 sec.
+60%             0.019 sec.
+70%             0.020 sec.
+80%             0.020 sec.
+90%             0.020 sec.
+95%             0.021 sec.
+99%             0.021 sec.
+99.9%           0.021 sec.
+99.99%          0.021 sec.
+
+
+root@clickhouse-node:/home/yc-user# echo "select * from system.numbers limit 1000000 offset 1000000" | clickhouse-benchmark -h localhost --port 9000 -i 10
+Loaded 1 queries.
+
+Queries executed: 10 (100%).
+
+```
 
 
 

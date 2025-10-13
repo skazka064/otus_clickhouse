@@ -262,3 +262,40 @@ Peak memory usage: 465.18 KiB.
 
 clickhouse-node.ru-central1.internal :)
 ```
+
+### Проведите тестирование производительности и сохраните результаты.
+
+```
+root@clickhouse-node:/home/yc-user# echo "select * from system.numbers limit 1000000 offset 1000000" | clickhouse-benchmark -h localhost --port 9000 -i 10
+Loaded 1 queries.
+
+Queries executed: 10 (100%).
+
+localhost:9000, queries: 10, QPS: 29.207, RPS: 58413620.933, MiB/s: 445.661, result RPS: 29206810.466, result MiB/s: 222.830.
+
+0%              0.019 sec.
+10%             0.019 sec.
+20%             0.020 sec.
+30%             0.020 sec.
+40%             0.020 sec.
+50%             0.020 sec.
+60%             0.020 sec.
+70%             0.021 sec.
+80%             0.021 sec.
+90%             0.021 sec.
+95%             0.023 sec.
+99%             0.023 sec.
+99.9%           0.023 sec.
+99.99%          0.023 sec.
+```
+
+
+
+
+
+
+
+
+
+
+

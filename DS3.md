@@ -95,6 +95,22 @@ FROM restaurant_menu
 WHERE is_available = true
 GROUP BY category;
 ```
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/><style>
+table {border: medium solid #6495ed;border-collapse: collapse;width: 100%;} th{font-family: monospace;border: thin solid #6495ed;padding: 5px;background-color: #D0E3FA;}th{text-align: left;}td{font-family: sans-serif;border: thin solid #6495ed;padding: 5px;text-align: center;}.odd{background:#e8edff;}img{padding:5px; border:solid; border-color: #dddddd #aaaaaa #aaaaaa #dddddd; border-width: 1px 2px 2px 1px; background-color:white;}</style>
+</head>
+<body>
+<table><tr><th colspan="5"><pre><code>SELECT <br>    category,<br>    count(*) as total_dishes,<br>    avg(price) as avg_price,<br>    min(price) as min_price,<br>    max(price) as max_price<br>FROM restaurant_menu <br>WHERE is_available = true<br>GROUP BY category</code></pre></th></tr><tr><th>category</th><th>total_dishes</th><th>avg_price</th><th>min_price</th><th>max_price</th></tr><tr class="odd"><td>Горячие блюда</td><td>2</td><td>910</td><td>620</td><td>1 200</td></tr>
+<tr><td>Салаты</td><td>3</td><td>396,6666666667</td><td>320</td><td>450</td></tr>
+<tr class="odd"><td>Супы</td><td>2</td><td>435</td><td>290</td><td>580</td></tr>
+<tr><td>Напитки</td><td>1</td><td>180</td><td>180</td><td>180</td></tr>
+<tr class="odd"><td>Десерты</td><td>1</td><td>350</td><td>350</td><td>350</td></tr>
+</table></body></html>
+
+
 -- Работа с массивами
 ```
 SELECT dish_name, allergens

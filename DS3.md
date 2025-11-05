@@ -261,3 +261,25 @@ FROM nyc_taxi.trips_small_materialized;
 <table><tr><th colspan="2"><pre><code>SELECT <br>    'Исходная таблица' as table_name,<br>    count(*) as row_count<br>FROM nyc_taxi.trips_small<br>UNION ALL<br>SELECT <br>    'Материализованная таблица' as table_name,<br>    count(*) as row_count<br>FROM nyc_taxi.trips_small_materialized</code></pre></th></tr><tr><th>table_name</th><th>row_count</th></tr><tr class="odd"><td>Материализованная таблица</td><td>3 000 317</td></tr>
 <tr><td>Исходная таблица</td><td>3 000 317</td></tr>
 </table>
+
+-- Создаем материализованное представление для новых вставок
+```
+CREATE MATERIALIZED VIEW nyc_taxi.trips_small_mv TO nyc_taxi.trips_small_materialized AS
+SELECT 
+    *
+FROM nyc_taxi.trips_small;
+```
+
+-- 1. Чтение из материализованной таблицы
+```
+SELECT 
+   *
+FROM nyc_taxi.trips_small_materialized LIMIT 4;
+```
+
+<table><tr><th colspan="17"><pre><code>SELECT <br>   *<br>FROM nyc_taxi.trips_small_materialized LIMIT 4</code></pre></th></tr><tr><th>trip_id</th><th>pickup_datetime</th><th>dropoff_datetime</th><th>pickup_longitude</th><th>pickup_latitude</th><th>dropoff_longitude</th><th>dropoff_latitude</th><th>passenger_count</th><th>trip_distance</th><th>fare_amount</th><th>extra</th><th>tip_amount</th><th>tolls_amount</th><th>total_amount</th><th>payment_type</th><th>pickup_ntaname</th><th>dropoff_ntaname</th></tr><tr class="odd"><td>1 203 745 557</td><td>2015-07-01 03:00:09</td><td>2015-07-01 03:06:27</td><td>-73,975402832</td><td>40,7518997192</td><td>-73,9910583496</td><td>40,7507286072</td><td>5</td><td>1,12</td><td>6,5</td><td>0,5</td><td>2,34</td><td>0</td><td>10,14</td><td>CSH</td><td>Turtle Bay-East Midtown</td><td>Midtown-Midtown South</td></tr>
+<tr><td>1 201 746 944</td><td>2015-07-01 03:00:12</td><td>2015-07-01 03:08:33</td><td>-73,9787368774</td><td>40,7876586914</td><td>-73,9656219482</td><td>40,8079299927</td><td>1</td><td>1,78</td><td>8,5</td><td>0,5</td><td>1,96</td><td>0</td><td>11,76</td><td>CSH</td><td>Upper West Side</td><td>Morningside Heights</td></tr>
+<tr class="odd"><td>1 200 864 931</td><td>2015-07-01 03:00:13</td><td>2015-07-01 03:14:41</td><td>-73,9904632568</td><td>40,7461166382</td><td>-73,9791870117</td><td>40,7846755981</td><td>5</td><td>3,54</td><td>13,5</td><td>0,5</td><td>1</td><td>0</td><td>15,8</td><td>CSH</td><td>Midtown-Midtown South</td><td>Upper West Side</td></tr>
+<tr><td>1 200 018 648</td><td>2015-07-01 03:00:16</td><td>2015-07-01 03:02:57</td><td>-73,7835845947</td><td>40,6486778259</td><td>-73,8024291992</td><td>40,6476783752</td><td>1</td><td>1,45</td><td>6</td><td>0,5</td><td>0</td><td>0</td><td>7,3</td><td>CRE</td><td>Airport</td><td>Airport</td></tr>
+</table>
+

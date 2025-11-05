@@ -191,3 +191,26 @@ WHERE dish_id = 4;
 
 
 ### Выполните выборку данных (select) из любой таблицы из sample dataset
+
+```
+SELECT *
+FROM nyc_taxi.trips_small
+LIMIT 10;
+```
+
+<table><tr><th colspan="10"><pre><code>SELECT *<br>FROM nyc_taxi.trips_small<br>LIMIT 10</code></pre></th></tr><tr><th>trip_id</th><th>pickup_datetime</th><th>dropoff_datetime</th><th>pickup_longitude</th><th>pickup_latitude</th><th>dropoff_longitude</th><th>dropoff_latitude</th><th>passenger_count</th><th>trip_distance</th><th>fare_amount</th></tr><tr class="odd"><td>1 203 745 557</td><td>2015-07-01 03:00:09</td><td>2015-07-01 03:06:27</td><td>-73,975402832</td><td>40,7518997192</td><td>-73,9910583496</td><td>40,7507286072</td><td>5</td><td>1,12</td><td>6,5</td></tr>
+<tr><td>1 201 746 944</td><td>2015-07-01 03:00:12</td><td>2015-07-01 03:08:33</td><td>-73,9787368774</td><td>40,7876586914</td><td>-73,9656219482</td><td>40,8079299927</td><td>1</td><td>1,78</td><td>8,5</td></tr>
+<tr class="odd"><td>1 200 864 931</td><td>2015-07-01 03:00:13</td><td>2015-07-01 03:14:41</td><td>-73,9904632568</td><td>40,7461166382</td><td>-73,9791870117</td><td>40,7846755981</td><td>5</td><td>3,54</td><td>13,5</td></tr>
+<tr><td>1 200 018 648</td><td>2015-07-01 03:00:16</td><td>2015-07-01 03:02:57</td><td>-73,7835845947</td><td>40,6486778259</td><td>-73,8024291992</td><td>40,6476783752</td><td>1</td><td>1,45</td><td>6</td></tr>
+<tr class="odd"><td>1 201 452 450</td><td>2015-07-01 03:00:20</td><td>2015-07-01 03:11:07</td><td>-73,9857940674</td><td>40,7277755737</td><td>-74,0048217773</td><td>40,737487793</td><td>5</td><td>1,56</td><td>8,5</td></tr>
+<tr><td>1 202 368 372</td><td>2015-07-01 03:00:40</td><td>2015-07-01 03:05:46</td><td>-74,0020675659</td><td>40,7383308411</td><td>-74,0065841675</td><td>40,748752594</td><td>2</td><td>1</td><td>6</td></tr>
+<tr class="odd"><td>1 201 973 571</td><td>2015-07-01 03:00:51</td><td>2015-07-01 03:32:50</td><td>-73,9884414673</td><td>40,7641944885</td><td>-73,8775100708</td><td>40,8807144165</td><td>2</td><td>14,1</td><td>41,5</td></tr>
+<tr><td>1 200 831 168</td><td>2015-07-01 03:01:06</td><td>2015-07-01 03:09:23</td><td>-73,9874801636</td><td>40,7434425354</td><td>-74,0057525635</td><td>40,7167930603</td><td>1</td><td>2,3</td><td>9</td></tr>
+<tr class="odd"><td>1 201 362 116</td><td>2015-07-01 03:01:07</td><td>2015-07-01 03:03:31</td><td>-73,9926986694</td><td>40,758266449</td><td>-73,986289978</td><td>40,7607574463</td><td>1</td><td>0,6</td><td>4</td></tr>
+<tr><td>1 201 215 784</td><td>2015-07-01 03:01:07</td><td>2015-07-01 03:08:07</td><td>-74,0136642456</td><td>40,7137794495</td><td>-74,0062637329</td><td>40,7080116272</td><td>2</td><td>1,1</td><td>6,5</td></tr>
+</table>
+
+
+
+
+

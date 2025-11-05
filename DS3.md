@@ -397,7 +397,7 @@ INSERT INTO stackoverflow.posts VALUES
 
 ### Появилась новая партиция с данными
 
-```
+
 
 <table><tr><th colspan="5"><pre><code>SELECT <br>    partition,<br>    count() as parts,<br>    sum(rows) as rows,<br>    formatReadableSize(sum(data_compressed_bytes)) as compressed_size,<br>    formatReadableSize(sum(data_uncompressed_bytes)) as uncompressed_size<br>FROM system.parts <br>WHERE table = 'posts' AND active<br>GROUP BY partition<br>ORDER BY partition</code></pre></th></tr><tr><th>partition</th><th>parts</th><th>rows</th><th>compressed_size</th><th>uncompressed_size</th></tr><tr class="odd"><td>2008</td><td>2</td><td>11 000</td><td>5.15 MiB</td><td>8.98 MiB</td></tr>
 <tr><td>2009</td><td>2</td><td>100 010</td><td>41.68 MiB</td><td>75.32 MiB</td></tr>
@@ -406,7 +406,7 @@ INSERT INTO stackoverflow.posts VALUES
 <tr class="odd"><td>2022</td><td>1</td><td>300</td><td>135.71 KiB</td><td>255.17 KiB</td></tr>
 <tr><td>2025</td><td>1</td><td>1</td><td>865.00 B</td><td>200.00 B</td></tr>
 </table>
-```
+
 
 
 

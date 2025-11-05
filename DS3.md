@@ -178,14 +178,12 @@ FROM restaurant_menu
 WHERE dish_id IN (1, 6, 8, 9);
 ```
 
-```
 
-9	Греческий салат	420.00	true	10	['lactose']
-6	Мохито	280.00	false	5	['none']
-1	Цезарь с курицей	450.00	true	8	['gluten','lactose']
-8	Борщ	290.00	true	15	['gluten','lactose','eggs']
-
-```
+<table><tr><th colspan="6"><pre><code>SELECT dish_id, dish_name, price, is_available, cooking_time_min, allergens<br>FROM restaurant_menu <br>WHERE dish_id IN (1, 6, 8, 9)</code></pre></th></tr><tr><th>dish_id</th><th>dish_name</th><th>price</th><th>is_available</th><th>cooking_time_min</th><th>allergens</th></tr><tr class="odd"><td>9</td><td>Греческий салат</td><td>420</td><td>true</td><td>10</td><td>['lactose']</td></tr>
+<tr><td>6</td><td>Мохито</td><td>280</td><td>false</td><td>5</td><td>['none']</td></tr>
+<tr class="odd"><td>1</td><td>Цезарь с курицей</td><td>450</td><td>true</td><td>8</td><td>['gluten','lactose']</td></tr>
+<tr><td>8</td><td>Борщ</td><td>290</td><td>true</td><td>15</td><td>['gluten','lactose','eggs']</td></tr>
+</table>
 
 
 

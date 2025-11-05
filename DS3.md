@@ -84,17 +84,6 @@ INSERT INTO restaurant_menu VALUES
 SELECT * FROM restaurant_menu WHERE dish_id IN (9, 10, 11);
 ```
 -- Агрегации
-```
-SELECT 
-    category,
-    count(*) as total_dishes,
-    avg(price) as avg_price,
-    min(price) as min_price,
-    max(price) as max_price
-FROM restaurant_menu 
-WHERE is_available = true
-GROUP BY category;
-```
 
 
 <table><tr><th colspan="5"><pre><code>SELECT <br>    category,<br>    count(*) as total_dishes,<br>    avg(price) as avg_price,<br>    min(price) as min_price,<br>    max(price) as max_price<br>FROM restaurant_menu <br>WHERE is_available = true<br>GROUP BY category</code></pre></th></tr><tr><th>category</th><th>total_dishes</th><th>avg_price</th><th>min_price</th><th>max_price</th></tr><tr class="odd"><td>Горячие блюда</td><td>2</td><td>910</td><td>620</td><td>1 200</td></tr>
@@ -107,7 +96,6 @@ GROUP BY category;
 
 -- Работа с массивами
 
-
 <table><tr><th colspan="2"><pre><code>SELECT dish_name, allergens<br>FROM restaurant_menu <br>WHERE has(allergens, 'gluten')</code></pre></th></tr><tr><th>dish_name</th><th>allergens</th></tr><tr class="odd"><td>Тирамису</td><td>['gluten','lactose','eggs']</td></tr>
 <tr><td>Цезарь с курицей</td><td>['gluten','lactose']</td></tr>
 <tr class="odd"><td>Борщ</td><td>['gluten','lactose','eggs']</td></tr>
@@ -118,12 +106,6 @@ GROUP BY category;
 
 
 -- Работа с NULL значениями
-```
-SELECT dish_name, cooking_time_min
-FROM restaurant_menu 
-WHERE cooking_time_min IS NULL;
-```
-
 
 <table><tr><th colspan="2"><pre><code>SELECT dish_name, cooking_time_min<br>FROM restaurant_menu <br>WHERE cooking_time_min IS NULL</code></pre></th></tr><tr><th>dish_name</th><th>cooking_time_min</th></tr><tr class="odd"><td>Тирамису</td><td>&nbsp;</td></tr>
 <tr><td>Морс клюквенный</td><td>&nbsp;</td></tr>
@@ -131,12 +113,6 @@ WHERE cooking_time_min IS NULL;
 
 
 -- Поиск по тексту
-```
-SELECT dish_name, description
-FROM restaurant_menu 
-WHERE dish_name LIKE '%салат%' OR description LIKE '%салат%';
-```
-
 
 <table><tr><th colspan="2"><pre><code>SELECT dish_name, description<br>FROM restaurant_menu <br>WHERE dish_name LIKE '%салат%' OR description LIKE '%салат%'<br></code></pre></th></tr><tr><th>dish_name</th><th>description</th></tr><tr class="odd"><td>Греческий салат</td><td>Салат с овощами, оливками и фетой</td></tr>
 <tr><td>Цезарь с курицей</td><td>Классический салат с листьями айсберг, куриной грудкой, пармезаном и соусом цезарь</td></tr>
@@ -172,11 +148,7 @@ WHERE dish_id = 8;
 ```
 
 -- Проверяем обновления
-```
-SELECT dish_id, dish_name, price, is_available, cooking_time_min, allergens
-FROM restaurant_menu 
-WHERE dish_id IN (1, 6, 8, 9);
-```
+
 
 
 <table><tr><th colspan="6"><pre><code>SELECT dish_id, dish_name, price, is_available, cooking_time_min, allergens<br>FROM restaurant_menu <br>WHERE dish_id IN (1, 6, 8, 9)</code></pre></th></tr><tr><th>dish_id</th><th>dish_name</th><th>price</th><th>is_available</th><th>cooking_time_min</th><th>allergens</th></tr><tr class="odd"><td>9</td><td>Греческий салат</td><td>420</td><td>true</td><td>10</td><td>['lactose']</td></tr>

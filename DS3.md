@@ -106,11 +106,7 @@ GROUP BY category;
 
 
 -- Работа с массивами
-```
-SELECT dish_name, allergens
-FROM restaurant_menu 
-WHERE has(allergens, 'gluten');
-```
+
 
 <table><tr><th colspan="2"><pre><code>SELECT dish_name, allergens<br>FROM restaurant_menu <br>WHERE has(allergens, 'gluten')</code></pre></th></tr><tr><th>dish_name</th><th>allergens</th></tr><tr class="odd"><td>Тирамису</td><td>['gluten','lactose','eggs']</td></tr>
 <tr><td>Цезарь с курицей</td><td>['gluten','lactose']</td></tr>

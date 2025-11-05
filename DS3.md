@@ -188,3 +188,6 @@ SELECT dish_id, dish_name
 FROM restaurant_menu 
 WHERE dish_id = 4;
 ```
+
+
+### Выполните выборку данных (select) из любой таблицы из sample dataset

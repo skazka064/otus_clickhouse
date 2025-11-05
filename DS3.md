@@ -211,6 +211,53 @@ LIMIT 10;
 </table>
 
 
+### Материализуйте выбранную таблицу, создав её копию в виде отдельной таблицы.
 
+```
+CREATE TABLE nyc_taxi.trips_small_materialized (
+    trip_id             UInt32,
+    pickup_datetime     DateTime,
+    dropoff_datetime    DateTime,
+    pickup_longitude    Nullable(Float64),
+    pickup_latitude     Nullable(Float64),
+    dropoff_longitude   Nullable(Float64),
+    dropoff_latitude    Nullable(Float64),
+    passenger_count     UInt8,
+    trip_distance       Float32,
+    fare_amount         Float32,
+    extra               Float32,
+    tip_amount          Float32,
+    tolls_amount        Float32,
+    total_amount        Float32,
+    payment_type        Enum('CSH' = 1, 'CRE' = 2, 'NOC' = 3, 'DIS' = 4, 'UNK' = 5),
+    pickup_ntaname      LowCardinality(String),
+    dropoff_ntaname     LowCardinality(String)
+)
+ENGINE = MergeTree
+PRIMARY KEY (pickup_datetime, dropoff_datetime)
+COMMENT 'Материализованная копия таблицы такси';
+```
 
+```
+INSERT INTO nyc_taxi.trips_small_materialized 
 
+SELECT 
+   *
+FROM nyc_taxi.trips_small;
+```
+-- Проверяем количество записей
+```
+SELECT 
+    'Исходная таблица' as table_name,
+    count(*) as row_count
+FROM nyc_taxi.trips_small
+UNION ALL
+SELECT 
+    'Материализованная таблица' as table_name,
+    count(*) as row_count
+FROM nyc_taxi.trips_small_materialized;
+```
+
+<table><tr><th colspan="2"><pre><code>SELECT <br>    'Исходная таблица' as table_name,<br>    count(*) as row_count<br>FROM nyc_taxi.trips_small<br>UNION ALL<br>SELECT <br>    'Материализованная таблица' as table_name,<br>    count(*) as row_count<br>FROM nyc_taxi.trips_small_materialized</code></pre></th></tr><tr><th>table_name</th><th>row_count</th></tr><tr class="odd"><td>Материализованная таблица</td><td>3 000 317</td></tr>
+<tr><td>Исходная таблица</td><td>3 000 317</td></tr>
+</table>

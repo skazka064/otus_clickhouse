@@ -158,5 +158,29 @@ WHERE dish_id = 8;
 </table>
 
 
+-- Удаление записей
 
+-- Удаление по условию (помечаем записи для удаления)
+```
+ALTER TABLE restaurant_menu 
+DELETE WHERE dish_id = 4;
+```
 
+-- Удаление нескольких записей
+```
+ALTER TABLE restaurant_menu 
+DELETE WHERE category = 'Напитки' AND is_available = false;
+```
+
+-- Удаление устаревших записей (если бы была логика архивации)
+```
+ALTER TABLE restaurant_menu 
+DELETE WHERE created_date < '2024-01-01';
+```
+
+-- Проверяем удаление
+```
+SELECT dish_id, dish_name 
+FROM restaurant_menu 
+WHERE dish_id = 4;
+```

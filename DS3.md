@@ -46,3 +46,19 @@ INSERT INTO restaurant_menu VALUES
 - Array(LowCardinality(String)) для allergens - эффективное хранение массива аллергенов с ограниченным набором значений
 - Decimal для price - точное хранение денежных значений.
 - Партиционирование по месяцу - для эффективного управления данными и удаления устаревших записей
+
+-- Доступные блюда по категориям
+SELECT category, count(*) as available_dishes
+FROM restaurant_menu 
+WHERE is_available = true
+GROUP BY category;
+
+-- Средняя цена по категориям
+SELECT category, avg(price) as avg_price
+FROM restaurant_menu 
+GROUP BY category;
+
+-- Блюда с аллергенами
+SELECT dish_name, allergens
+FROM restaurant_menu 
+WHERE allergens != ['none'];

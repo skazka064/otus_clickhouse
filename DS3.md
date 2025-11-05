@@ -283,3 +283,46 @@ FROM nyc_taxi.trips_small_materialized LIMIT 4;
 <tr><td>1 200 018 648</td><td>2015-07-01 03:00:16</td><td>2015-07-01 03:02:57</td><td>-73,7835845947</td><td>40,6486778259</td><td>-73,8024291992</td><td>40,6476783752</td><td>1</td><td>1,45</td><td>6</td><td>0,5</td><td>0</td><td>0</td><td>7,3</td><td>CRE</td><td>Airport</td><td>Airport</td></tr>
 </table>
 
+## Попрактикуйтесь с партициями: выполните операции ATTACH, DETACH и DROP. После этого добавьте новые данные в первоначально созданную таблицу.
+
+```
+
+
+CREATE DATABASE stackoverflow
+
+
+
+CREATE TABLE 
+(
+    `Id` Int32 CODEC(Delta(4), ZSTD(1)),
+    `PostTypeId` Enum8('Question' = 1, 'Answer' = 2, 'Wiki' = 3, 'TagWikiExcerpt' = 4, 'TagWiki' = 5, 'ModeratorNomination' = 6, 'WikiPlaceholder' = 7, 'PrivilegeWiki' = 8),
+    `AcceptedAnswerId` UInt32,
+    `CreationDate` DateTime64(3, 'UTC'),
+    `Score` Int32,
+    `ViewCount` UInt32 CODEC(Delta(4), ZSTD(1)),
+    `Body` String,
+    `OwnerUserId` Int32,
+    `OwnerDisplayName` String,
+    `LastEditorUserId` Int32,
+    `LastEditorDisplayName` String,
+    `LastEditDate` DateTime64(3, 'UTC') CODEC(Delta(8), ZSTD(1)),
+    `LastActivityDate` DateTime64(3, 'UTC'),
+    `Title` String,
+    `Tags` String,
+    `AnswerCount` UInt16 CODEC(Delta(2), ZSTD(1)),
+    `CommentCount` UInt8,
+    `FavoriteCount` UInt8,
+    `ContentLicense` LowCardinality(String),
+    `ParentId` String,
+    `CommunityOwnedDate` DateTime64(3, 'UTC'),
+    `ClosedDate` DateTime64(3, 'UTC')
+)
+ENGINE = MergeTree
+PARTITION BY toYear(CreationDate)
+ORDER BY (PostTypeId, toDate(CreationDate), CreationDate)
+
+INSERT INTO stackoverflow.posts SELECT * FROM s3('https://datasets-documentation.s3.eu-west-3.amazonaws.com/stackoverflow/parquet/posts/*.parquet') WHERE toYear(CreationDate) IN (2021,2022,2023) LIMIT 300
+```
+
+
+

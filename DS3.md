@@ -117,6 +117,20 @@ SELECT dish_name, allergens
 FROM restaurant_menu 
 WHERE has(allergens, 'gluten');
 ```
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/><style>
+table {border: medium solid #6495ed;border-collapse: collapse;width: 100%;} th{font-family: monospace;border: thin solid #6495ed;padding: 5px;background-color: #D0E3FA;}th{text-align: left;}td{font-family: sans-serif;border: thin solid #6495ed;padding: 5px;text-align: center;}.odd{background:#e8edff;}img{padding:5px; border:solid; border-color: #dddddd #aaaaaa #aaaaaa #dddddd; border-width: 1px 2px 2px 1px; background-color:white;}</style>
+</head>
+<body>
+<table><tr><th colspan="2"><pre><code>SELECT dish_name, allergens<br>FROM restaurant_menu <br>WHERE has(allergens, 'gluten')</code></pre></th></tr><tr><th>dish_name</th><th>allergens</th></tr><tr class="odd"><td>Тирамису</td><td>['gluten','lactose','eggs']</td></tr>
+<tr><td>Цезарь с курицей</td><td>['gluten','lactose']</td></tr>
+<tr class="odd"><td>Борщ</td><td>['gluten','lactose','eggs']</td></tr>
+<tr><td>Бургер Чеддер</td><td>['gluten','lactose']</td></tr>
+<tr class="odd"><td>Лазанья</td><td>['gluten','lactose']</td></tr>
+</table></body></html>
+
 
 -- Работа с NULL значениями
 ```
@@ -124,14 +138,33 @@ SELECT dish_name, cooking_time_min
 FROM restaurant_menu 
 WHERE cooking_time_min IS NULL;
 ```
-
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/><style>
+table {border: medium solid #6495ed;border-collapse: collapse;width: 100%;} th{font-family: monospace;border: thin solid #6495ed;padding: 5px;background-color: #D0E3FA;}th{text-align: left;}td{font-family: sans-serif;border: thin solid #6495ed;padding: 5px;text-align: center;}.odd{background:#e8edff;}img{padding:5px; border:solid; border-color: #dddddd #aaaaaa #aaaaaa #dddddd; border-width: 1px 2px 2px 1px; background-color:white;}</style>
+</head>
+<body>
+<table><tr><th colspan="2"><pre><code>SELECT dish_name, cooking_time_min<br>FROM restaurant_menu <br>WHERE cooking_time_min IS NULL</code></pre></th></tr><tr><th>dish_name</th><th>cooking_time_min</th></tr><tr class="odd"><td>Тирамису</td><td>&nbsp;</td></tr>
+<tr><td>Морс клюквенный</td><td>&nbsp;</td></tr>
+</table></body></html>
 -- Поиск по тексту
 ```
 SELECT dish_name, description
 FROM restaurant_menu 
 WHERE dish_name LIKE '%салат%' OR description LIKE '%салат%';
 ```
-
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/><style>
+table {border: medium solid #6495ed;border-collapse: collapse;width: 100%;} th{font-family: monospace;border: thin solid #6495ed;padding: 5px;background-color: #D0E3FA;}th{text-align: left;}td{font-family: sans-serif;border: thin solid #6495ed;padding: 5px;text-align: center;}.odd{background:#e8edff;}img{padding:5px; border:solid; border-color: #dddddd #aaaaaa #aaaaaa #dddddd; border-width: 1px 2px 2px 1px; background-color:white;}</style>
+</head>
+<body>
+<table><tr><th colspan="2"><pre><code>SELECT dish_name, description<br>FROM restaurant_menu <br>WHERE dish_name LIKE '%салат%' OR description LIKE '%салат%'<br></code></pre></th></tr><tr><th>dish_name</th><th>description</th></tr><tr class="odd"><td>Греческий салат</td><td>Салат с овощами, оливками и фетой</td></tr>
+<tr><td>Цезарь с курицей</td><td>Классический салат с листьями айсберг, куриной грудкой, пармезаном и соусом цезарь</td></tr>
+<tr class="odd"><td>Оливье</td><td>Традиционный салат оливье</td></tr>
+</table></body></html>
 -- Обновление цены для конкретного блюда
 ```
 ALTER TABLE restaurant_menu 

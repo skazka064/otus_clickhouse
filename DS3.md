@@ -83,4 +83,83 @@ INSERT INTO restaurant_menu VALUES
 ```
 SELECT * FROM restaurant_menu WHERE dish_id IN (9, 10, 11);
 ```
+-- Агрегации
+```
+SELECT 
+    category,
+    count(*) as total_dishes,
+    avg(price) as avg_price,
+    min(price) as min_price,
+    max(price) as max_price
+FROM restaurant_menu 
+WHERE is_available = true
+GROUP BY category;
+```
+-- Работа с массивами
+```
+SELECT dish_name, allergens
+FROM restaurant_menu 
+WHERE has(allergens, 'gluten');
+```
+
+-- Работа с NULL значениями
+```
+SELECT dish_name, cooking_time_min
+FROM restaurant_menu 
+WHERE cooking_time_min IS NULL;
+```
+
+-- Поиск по тексту
+```
+SELECT dish_name, description
+FROM restaurant_menu 
+WHERE dish_name LIKE '%салат%' OR description LIKE '%салат%';
+```
+
+-- Обновление цены для конкретного блюда
+```
+ALTER TABLE restaurant_menu 
+UPDATE price = 420.00 
+WHERE dish_id = 9;
+```
+
+-- Обновление статуса доступности
+```
+ALTER TABLE restaurant_menu 
+UPDATE is_available = false 
+WHERE dish_id = 6;
+```
+
+-- Обновление времени приготовления
+```
+ALTER TABLE restaurant_menu 
+UPDATE cooking_time_min = 8 
+WHERE dish_id = 1 AND category = 'Салаты';
+```
+
+-- Обновление с изменением массива аллергенов
+```
+ALTER TABLE restaurant_menu 
+UPDATE allergens = ['gluten','lactose','eggs'] 
+WHERE dish_id = 8;
+```
+
+-- Проверяем обновления
+```
+SELECT dish_id, dish_name, price, is_available, cooking_time_min, allergens
+FROM restaurant_menu 
+WHERE dish_id IN (1, 6, 8, 9);
+```
+
+```
+
+9	Греческий салат	420.00	true	10	['lactose']
+6	Мохито	280.00	false	5	['none']
+1	Цезарь с курицей	450.00	true	8	['gluten','lactose']
+8	Борщ	290.00	true	15	['gluten','lactose','eggs']
+
+```
+
+
+
 

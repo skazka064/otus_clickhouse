@@ -28,3 +28,16 @@ SELECT * FROM tbl1;
 <table><tr><th colspan="5"><pre><code>SELECT * FROM tbl1</code></pre></th></tr><tr><th>UserID</th><th>PageViews</th><th>Duration</th><th>Sign</th><th>Version</th></tr><tr class="odd"><td>4 324 182 021 466 249 494</td><td>6</td><td>185</td><td>1</td><td>2</td></tr>
 <tr><td>4 324 182 021 466 249 494</td><td>5</td><td>146</td><td>-1</td><td>1</td></tr>
 </table></body></html>
+
+```sql
+SELECT * FROM tbl1 final;
+```
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/>
+</head>
+<body>
+<table><tr><th colspan="5"><pre><code>SELECT * FROM tbl1 final</code></pre></th></tr><tr><th>UserID</th><th>PageViews</th><th>Duration</th><th>Sign</th><th>Version</th></tr><tr class="odd"><td>4 324 182 021 466 249 494</td><td>6</td><td>185</td><td>1</td><td>2</td></tr>
+</table></body></html>
+

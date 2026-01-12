@@ -16,7 +16,7 @@ INSERT INTO tbl1 VALUES (4324182021466249494, 5, 146, -1, 1);
 
 INSERT INTO tbl1 VALUES (4324182021466249494, 5, 146, 1, 1),(4324182021466249494, 6, 185, 1, 2);
 
-SELECT * FROM tbl1;
+
 ```
 
 <!DOCTYPE html>
@@ -30,7 +30,7 @@ SELECT * FROM tbl1;
 </table></body></html>
 
 ```sql
-SELECT * FROM tbl1 final;
+
 ```
 <!DOCTYPE html>
 <html>

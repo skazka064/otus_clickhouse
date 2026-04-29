@@ -54,6 +54,74 @@ select * from tbl2;
 |1|3|
 |2|1|
 
+# Пример03
+Судя по задаче, необходимо заменить строку с id=23, т.к. с FINAL мы видим одну строку вместо двух. Значит ее надо заменить. Поскольку ClickHouse плохо справляется с частыми обновлениями, можно обновить столбец, вставив новую строку с такими же ключами сортировки, и ClickHouse удалит строки в фоновом режиме. 
+
+
+```sql
+CREATE TABLE tbl3
+(
+    `id` Int32,
+    `status` String,
+    `price` String,
+    `comment` String
+)
+ENGINE = ReplacingMergeTree
+PRIMARY KEY (id)
+ORDER BY (id, status);
+
+INSERT INTO tbl3 VALUES (23, 'success', '1000', 'Confirmed');
+INSERT INTO tbl3 VALUES (23, 'success', '2000', 'Cancelled'); 
+
+SELECT * from tbl3 WHERE id=23;
+
+```
+|id|status|price|comment|
+|--|------|-----|-------|
+|23|success|1000|Confirmed|
+|23|success|2000|Cancelled|
+
+```sql
+SELECT * from tbl3 FINAL WHERE id=23;
+```
+|id|status|price|comment|
+|--|------|-----|-------|
+|23|success|2000|Cancelled|
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -137,6 +137,7 @@ GROUP BY CounterID, StartDate;
 |1|
 
 # Пример06
+ У нас есть поле sign — это ключевой индикатор. Поэтому - CollapsingMergeTree(sign)
 ```sql
 CREATE TABLE tbl6
 (

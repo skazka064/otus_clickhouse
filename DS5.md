@@ -110,7 +110,7 @@ select * from tbl4;
 |1|2019-11-12|1|
 
 # Пример05
-
+AggregateFunction(uniq, UInt64) — это специальный тип данных, который хранит не само значение UserID, а промежуточное состояние хеш-таблицы для вычисления приблизительного количества уникальных пользователей. Поэтому - AggregatingMergeTree()
 ```sql
 CREATE TABLE tbl5
 (   CounterID UInt8,
@@ -136,7 +136,40 @@ GROUP BY CounterID, StartDate;
 |1|
 |1|
 
-Пример06
+# Пример06
+```sql
+CREATE TABLE tbl6
+(
+    `id` Int32,
+    `status` String,
+    `price` String,
+    `comment` String,
+    `sign` Int8
+)
+ENGINE = CollapsingMergeTree(sign)
+PRIMARY KEY (id)
+ORDER BY (id, status);
+
+INSERT INTO tbl6 VALUES (23, 'success', '1000', 'Confirmed', 1);
+INSERT INTO tbl6 VALUES (23, 'success', '1000', 'Confirmed', -1), (23, 'success', '2000', 'Cancelled', 1);
+```
+
+|id|status|price|comment|sign|
+|--|------|-----|-------|----|
+|23|success|1000|Confirmed|1|
+|23|success|1000|Confirmed|-1|
+|23|success|2000|Cancelled|1|
+
+
+```sql
+SELECT * FROM tbl6 FINAL;
+```
+
+|id|status|price|comment|sign|
+|--|------|-----|-------|----|
+|23|success|2000|Cancelled|1|
+
+
 
 
 

@@ -1,4 +1,4 @@
-
+# Пример01
 У нас три вставки (-1,1) - старая версия (Sign=-1, Version=1)
                   (1,1) - новая версия с теми же данными (Sign =1 , Version =1)
                   (1,2) - еще одна новая версия (Sign =1, Version =2)
@@ -32,3 +32,31 @@ SELECT * FROM tbl1 final;
 |UserID|PageViews|Duration|Sign|Version|
 |------|---------|--------|----|-------|
 |4324182021466249494|6|185|1|2|
+
+# Пример02
+Ну, по условию вывода select больше подходит SummingMergeTree(value) , т.к. при key=1, value=3 при вставках (1,1) (1,2) (2,1) т.е. value суммировалось 1+2=3
+
+```sql
+CREATE TABLE tbl2
+(
+    key UInt32,
+    value UInt32
+)
+ENGINE = SummingMergeTree(value)
+ORDER BY key;
+
+INSERT INTO tbl2 Values(1,1),(1,2),(2,1);
+
+select * from tbl2;
+```
+|key|value|
+|---|-----|
+|1|3|
+|2|1|
+
+
+
+
+
+
+

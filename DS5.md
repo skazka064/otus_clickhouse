@@ -1,6 +1,4 @@
-```sql
-
-CREATE TABLE tbl1
+```CREATE TABLE tbl1
 (
     UserID UInt64,
     PageViews UInt8,
@@ -8,36 +6,14 @@ CREATE TABLE tbl1
     Sign Int8,
     Version UInt8
 )
-ENGINE = ReplacingMergeTree()
+ENGINE = VersionedCollapsingMergeTree(Sign, Version)
 ORDER BY UserID;
 
-
-INSERT INTO tbl1 VALUES (4324182021466249494, 5, 146, -1, 1);
-
-INSERT INTO tbl1 VALUES (4324182021466249494, 5, 146, 1, 1),(4324182021466249494, 6, 185, 1, 2);
-
-
-```
-
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8"/>
-</head>
-<body>
-<table><tr><th colspan="5"><pre><code>SELECT * FROM tbl1</code></pre></th></tr><tr><th>UserID</th><th>PageViews</th><th>Duration</th><th>Sign</th><th>Version</th></tr><tr class="odd"><td>4 324 182 021 466 249 494</td><td>6</td><td>185</td><td>1</td><td>2</td></tr>
-<tr><td>4 324 182 021 466 249 494</td><td>5</td><td>146</td><td>-1</td><td>1</td></tr>
-</table></body></html>
-
-```sql
-
-```
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8"/>
-</head>
-<body>
-<table><tr><th colspan="5"><pre><code>SELECT * FROM tbl1 final</code></pre></th></tr><tr><th>UserID</th><th>PageViews</th><th>Duration</th><th>Sign</th><th>Version</th></tr><tr class="odd"><td>4 324 182 021 466 249 494</td><td>6</td><td>185</td><td>1</td><td>2</td></tr>
-</table></body></html>
-
+INSERT INTO tbl1 VALUES (4324182021466249494, 5, 146, 1, 1);
+INSERT INTO tbl1 VALUES (4324182021466249494, 5, 146, -1, 1),(4324182021466249494, 6, 185, 1, 2);
+SELECT * FROM tbl1;```
+|UserID|PageViews|Duration|Sign|Version|
+|------|---------|--------|----|-------|
+|4324182021466249494|5|146|1|1|
+|4324182021466249494|5|146|-1|1|
+|4324182021466249494|6|185|1|2|

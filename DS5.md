@@ -88,6 +88,28 @@ SELECT * from tbl3 FINAL WHERE id=23;
 |--|------|-----|-------|
 |23|success|2000|Cancelled|
 
+# Пример04
+Две сроки вставки. Они полностью уникальны по ключу сортировки ORDER BY (CounterID, StartDate). Нет дубликатов, нет числовых полей для суммировани, нет поля Sign, поэтому подойдет MergeTree
+
+```sql
+CREATE TABLE tbl4
+(   CounterID UInt8,
+    StartDate Date,
+    UserID UInt64
+) ENGINE = MergeTree
+PARTITION BY toYYYYMM(StartDate) 
+ORDER BY (CounterID, StartDate);
+
+INSERT INTO tbl4 VALUES(0, '2019-11-11', 1);
+INSERT INTO tbl4 VALUES(1, '2019-11-12', 1);
+select * from tbl4;
+```
+|CounterID|StartDate|UserID|
+|---------|---------|------|
+|0|2019-11-11|1|
+|1|2019-11-12|1|
+
+
 
 
 

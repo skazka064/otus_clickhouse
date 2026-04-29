@@ -109,6 +109,35 @@ select * from tbl4;
 |0|2019-11-11|1|
 |1|2019-11-12|1|
 
+# Пример05
+
+```sql
+CREATE TABLE tbl5
+(   CounterID UInt8,
+    StartDate Date,
+    UserID AggregateFunction(uniq, UInt64)
+) ENGINE = AggregatingMergeTree()
+PARTITION BY toYYYYMM(StartDate) 
+ORDER BY (CounterID, StartDate);
+
+INSERT INTO tbl5
+select CounterID, StartDate, uniqState(UserID)
+from tbl4
+group by CounterID, StartDate;
+INSERT INTO tbl5 VALUES (1,'2019-11-12',1);
+
+SQL Error [53] [22000]: Code: 53. DB::Exception: Cannot convert UInt64 to AggregateFunction(uniq, UInt64): While executing ValuesBlockInputFormat. (TYPE_MISMATCH) (version 25.8.21.7 (official build))  (queryId= 7e65d97b-d34f-42b3-b883-762f9da9b467)
+SELECT uniqMerge(UserID) AS state 
+FROM tbl5 
+GROUP BY CounterID, StartDate;
+```
+|state|
+|-----|
+|1|
+|1|
+
+Пример06
+
 
 
 

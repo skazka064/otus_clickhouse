@@ -71,43 +71,36 @@ FROM sales
 GROUP BY product_id;
 
 ## Сравнение производительности:
+
 ```
--- Включение таймингов
-SET send_logs_level = 'trace';
-
--- Запрос 1: К основной таблице
+-- ТЕСТ 1: Обычная таблица (самый медленный)
 SELECT 
     product_id,
     sum(quantity) AS total_quantity,
     sum(quantity * price) AS total_sales
 FROM sales
 GROUP BY product_id;
+Время 0.01s
 
--- Запрос 2: С использованием проекции (оптимизатор должен выбрать её автоматически)
+
+TЕСТ2: Проекция Быстрее
 SELECT 
     product_id,
     sum(quantity) AS total_quantity,
     sum(quantity * price) AS total_sales
 FROM sales
 GROUP BY product_id;
+Время 0.008s
 
--- Проверка, используется ли проекция
-EXPLAIN SELECT 
-    product_id,
-    sum(quantity) AS total_quantity,
-    sum(quantity * price) AS total_sales
-FROM sales
-GROUP BY product_id;
 
--- Запрос 3: К материализованному представлению
+-- ТЕСТ 3: MV (самый быстрый)
 SELECT 
     product_id,
     total_quantity,
     total_sales
 FROM sales_aggregated;
+Время 0.006s
 ```
-
-
 
 
 

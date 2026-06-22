@@ -1,5 +1,5 @@
-### 1. Возьмите любой демонстрационный DATASET: https://clickhouse.com/docs/en/getting-started/example-datasets.
-### Создал на хосте clickhouse-01 таблицу и вставил в нее данные из датасета.
+## 1. Возьмите любой демонстрационный DATASET: https://clickhouse.com/docs/en/getting-started/example-datasets.
+### Создал на хосте clickhouse-01 таблицу.
 ```
    CREATE TABLE amazon_reviews
 (
@@ -27,7 +27,7 @@
 ENGINE = MergeTree
 ```
 
-#
+# Вставил данные из датасета
 ```
 INSERT INTO amazon_reviews SELECT *
 FROM s3('https://datasets-documentation.s3.eu-west-3.amazonaws.com/amazon_reviews/amazon_reviews_*.snappy.parquet') limit 1000

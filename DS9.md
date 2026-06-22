@@ -92,6 +92,142 @@ clickhouse-01 :)
 
 ```
 
+### Проверяю настройку макросов
+
+```
+SELECT * FROM system.macros;
+```
+|macro|substitution|
+|-----|------------|
+|replica|clickhouse-01|
+|shard|01|
+
+
+
+
+
+
+### Создаю на clickhouse-01 таблицу с движком ReplacedMergeTree
+
+```
+
+CREATE TABLE amazon_reviews_repl
+(
+    `review_date` Date,
+    `marketplace` LowCardinality(String),
+    `customer_id` UInt64,
+    `review_id` String,
+    `product_id` String,
+    `product_parent` UInt64,
+    `product_title` String,
+    `product_category` LowCardinality(String),
+    `star_rating` UInt8,
+    `helpful_votes` UInt32,
+    `total_votes` UInt32,
+    `vine` Bool,
+    `verified_purchase` Bool,
+    `review_headline` String,
+    `review_body` String,
+    PROJECTION helpful_votes
+    (
+        SELECT *
+        ORDER BY helpful_votes
+    )
+)
+ENGINE = ReplicatedMergeTree(
+    '/clickhouse/tables/amazon_reviews',  
+    '{replica}'                                           
+)
+ORDER BY (review_date, product_category);
+
+```
+
+### Заливаю данные в реплицированную таблицу
+
+```
+clickhouse-01 :) INSERT INTO amazon_reviews_repl
+:-] SELECT * FROM amazon_reviews;
+
+INSERT INTO amazon_reviews_repl SELECT *
+FROM amazon_reviews
+
+Query id: f901042d-8a15-4ee6-80bd-8527742f8c21
+
+Ok.
+
+1000 rows in set. Elapsed: 0.046 sec. Processed 1.00 thousand rows, 729.50 KB (21.84 thousand rows/s., 15.94 MB/s.)
+Peak memory usage: 8.82 MiB.
+```
+
+### Проверяю репликацию и вставку данных
+
+```
+clickhouse-01 :) SELECT
+    database,
+    table,
+    engine,
+    replica_name,
+    total_replicas,
+    active_replicas
+FROM system.replicas
+WHERE table = 'amazon_reviews_repl';
+
+SELECT
+    database,
+    `table`,
+    engine,
+    replica_name,
+    total_replicas,
+    active_replicas
+FROM system.replicas
+WHERE `table` = 'amazon_reviews_repl'
+
+Query id: daa4252a-ea22-4424-bb86-15ffe418ffe1
+
+   ┌─database─┬─table───────────────┬─engine──────────────┬─replica_name──┬─total_replicas─┬─active_replicas─┐
+1. │ default  │ amazon_reviews_repl │ ReplicatedMergeTree │ clickhouse-01 │              1 │               1 │
+   └──────────┴─────────────────────┴─────────────────────┴───────────────┴────────────────┴─────────────────┘
+
+1 row in set. Elapsed: 0.005 sec.
+
+clickhouse-01 :) select * from amazon_reviews_repl limit 3
+
+SELECT *
+FROM amazon_reviews_repl
+LIMIT 3
+
+Query id: ca097a40-2fde-4afc-96a2-6e9f23b2860a
+
+Row 1:
+──────
+review_date:       1995-06-24
+marketplace:       US
+customer_id:       53096571 -- 53.10 million
+review_id:         RHL4UW17ZK72A
+product_id:        0521314925
+product_parent:    980601331 -- 980.60 million
+product_title:     Invention and Evolution:Design in Nature and Engineering
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

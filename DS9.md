@@ -207,8 +207,113 @@ review_id:         RHL4UW17ZK72A
 product_id:        0521314925
 product_parent:    980601331 -- 980.60 million
 product_title:     Invention and Evolution:Design in Nature and Engineering
+................................
 ```
 
+### Подключаюсь к clickhouse-02
+### Проверяю настройку макросов
+### Создаю такую же реплицированную таблицу
+### Проверяю что данные подтянулись
+
+```
+clickhouse-02 :) SELECT * FROM system.macros;
+
+SELECT *
+FROM system.macros
+
+Query id: 4c80cf81-18f1-4be7-b52d-aa3785097447
+
+   ┌─macro───┬─substitution──┐
+1. │ replica │ clickhouse-02 │
+2. │ shard   │ 01            │
+   └─────────┴───────────────┘
+
+2 rows in set. Elapsed: 0.002 sec.
+
+clickhouse-02 :) CREATE TABLE amazon_reviews_repl
+:-] (
+:-]     `review_date` Date,
+:-]     `marketplace` LowCardinality(String),
+:-]     `customer_id` UInt64,
+:-]     `review_id` String,
+:-]     `product_id` String,
+:-]     `product_parent` UInt64,
+:-]     `product_title` String,
+:-]     `product_category` LowCardinality(String),
+:-]     `star_rating` UInt8,
+:-]     `helpful_votes` UInt32,
+:-]     `total_votes` UInt32,
+:-]     `vine` Bool,
+:-]     `verified_purchase` Bool,
+:-]     `review_headline` String,
+:-]     `review_body` String,
+:-]     PROJECTION helpful_votes
+:-]     (
+:-]         SELECT *
+:-]         ORDER BY helpful_votes
+:-]     )
+:-] )
+:-] ENGINE = ReplicatedMergeTree(
+:-]     '/clickhouse/tables/amazon_reviews',  -- путь в ZooKeeper
+:-]     '{replica}'                                            -- имя реплики
+:-] )
+:-] ORDER BY (review_date, product_category);
+
+CREATE TABLE amazon_reviews_repl
+(
+    `review_date` Date,
+    `marketplace` LowCardinality(String),
+    `customer_id` UInt64,
+    `review_id` String,
+    `product_id` String,
+    `product_parent` UInt64,
+    `product_title` String,
+    `product_category` LowCardinality(String),
+    `star_rating` UInt8,
+    `helpful_votes` UInt32,
+    `total_votes` UInt32,
+    `vine` Bool,
+    `verified_purchase` Bool,
+    `review_headline` String,
+    `review_body` String,
+    PROJECTION helpful_votes
+    (
+        SELECT *
+        ORDER BY helpful_votes
+    )
+)
+ENGINE = ReplicatedMergeTree('/clickhouse/tables/amazon_reviews', '{replica}')
+ORDER BY (review_date, product_category)
+
+Query id: fbb1c679-44a7-402d-b5b6-1082c573391c
+
+Ok.
+
+0 rows in set. Elapsed: 0.087 sec.
+
+clickhouse-02 :) select * from amazon_reviews_repl limit 3
+
+SELECT *
+FROM amazon_reviews_repl
+LIMIT 3
+
+Query id: d84af5ad-e422-40e7-af1b-91a45dee4a42
+
+Row 1:
+──────
+review_date:       1995-06-24
+marketplace:       US
+customer_id:       53096571 -- 53.10 million
+review_id:         RHL4UW17ZK72A
+product_id:        0521314925
+product_parent:    980601331 -- 980.60 million
+product_title:     Invention and Evolution:Design in Nature and Engineering
+product_category:  Books
+star_rating:       5
+
+
+
+````
 
 
 

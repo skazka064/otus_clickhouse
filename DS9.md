@@ -47,7 +47,50 @@ select * from amazon_reviews limit 3
 |1995-06-24|US|53096571|R34N4QWDXX58WB|0870210092|442607382|Arming and Fitting of |Books|4|12|13|false|false|good enough|
 |1995-07-07|US|53096573|RPLV77JZXG575|047194128X|377091465|Object-Oriented Type Systems|Books|4|4|4|false|false|Good techniques, well written.|The best 
 
+### Затем посмотрел как создана таблица
 
+```
+clickhouse-01 :) show create table amazon_reviews;
+
+SHOW CREATE TABLE amazon_reviews
+
+Query id: e30e3933-a7d4-421e-90e4-ae70a08f2ccd
+
+   ┌─statement──────────────────────────────────────┐
+1. │ CREATE TABLE default.amazon_reviews           ↴│
+   │↳(                                             ↴│
+   │↳    `review_date` Date,                       ↴│
+   │↳    `marketplace` LowCardinality(String),     ↴│
+   │↳    `customer_id` UInt64,                     ↴│
+   │↳    `review_id` String,                       ↴│
+   │↳    `product_id` String,                      ↴│
+   │↳    `product_parent` UInt64,                  ↴│
+   │↳    `product_title` String,                   ↴│
+   │↳    `product_category` LowCardinality(String),↴│
+   │↳    `star_rating` UInt8,                      ↴│
+   │↳    `helpful_votes` UInt32,                   ↴│
+   │↳    `total_votes` UInt32,                     ↴│
+   │↳    `vine` Bool,                              ↴│
+   │↳    `verified_purchase` Bool,                 ↴│
+   │↳    `review_headline` String,                 ↴│
+   │↳    `review_body` String,                     ↴│
+   │↳    PROJECTION helpful_votes                  ↴│
+   │↳    (                                         ↴│
+   │↳        SELECT *                              ↴│
+   │↳        ORDER BY helpful_votes                ↴│
+   │↳    )                                         ↴│
+   │↳)                                             ↴│
+   │↳ENGINE = MergeTree                            ↴│
+   │↳ORDER BY (review_date, product_category)      ↴│
+   │↳SETTINGS index_granularity = 8192              │
+   └────────────────────────────────────────────────┘
+
+1 row in set. Elapsed: 0.002 sec.
+
+clickhouse-01 :)
+
+
+```
 
 
 

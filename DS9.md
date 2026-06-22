@@ -107,7 +107,7 @@ SELECT * FROM system.macros;
 
 
 
-### Создаю на clickhouse-01 таблицу с движком ReplacedMergeTree
+### Создаю на clickhouse-01 таблицу с движком ReplicatedMergeTree
 
 ```
 

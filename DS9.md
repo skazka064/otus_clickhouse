@@ -464,8 +464,66 @@ clickhouse-03 :)
 
 
 ```
+### Выполните запросы и отдайте результаты как 2 файла:
+https://github.com/skazka064/otus_clickhouse/blob/main/repl_data.json
+https://github.com/skazka064/otus_clickhouse/blob/main/data.json
 
+### Добавьте или выберите колонку с типом Date в таблице, добавьте TTL на таблицу «хранить последние 7 дней». 
 
+```
+ ALTER TABLE amazon_reviews_repl ON CLUSTER cluster_3_replicas
+:-] MODIFY TTL review_date + INTERVAL 7 DAY;
+
+ALTER TABLE amazon_reviews_repl ON CLUSTER cluster_3_replicas
+    (MODIFY TTL review_date + toIntervalDay(7))
+
+Query id: cc9e53c3-6428-4fd5-86bf-0f740b1b2ac3
+
+   ┌─host──────────┬─port─┬─status─┬─error─┬─num_hosts_remaining─┬─num_hosts_active─┐
+1. │ clickhouse-03 │ 9000 │      0 │       │                   2 │                0 │
+2. │ clickhouse-02 │ 9000 │      0 │       │                   1 │                0 │
+3. │ clickhouse-01 │ 9000 │      0 │       │                   0 │                0 │
+   └───────────────┴──────┴────────┴───────┴─────────────────────┴──────────────────┘
+
+SHOW CREATE TABLE amazon_reviews_repl
+
+Query id: 56668d9e-ec4c-4404-bf4f-b74e10dbfc27
+
+   ┌─statement──────────────────────────────────────────────────────────────────────┐
+1. │ CREATE TABLE default.amazon_reviews_repl                                      ↴│
+   │↳(                                                                             ↴│
+   │↳    `review_date` Date,                                                       ↴│
+   │↳    `marketplace` LowCardinality(String),                                     ↴│
+   │↳    `customer_id` UInt64,                                                     ↴│
+   │↳    `review_id` String,                                                       ↴│
+   │↳    `product_id` String,                                                      ↴│
+   │↳    `product_parent` UInt64,                                                  ↴│
+   │↳    `product_title` String,                                                   ↴│
+   │↳    `product_category` LowCardinality(String),                                ↴│
+   │↳    `star_rating` UInt8,                                                      ↴│
+   │↳    `helpful_votes` UInt32,                                                   ↴│
+   │↳    `total_votes` UInt32,                                                     ↴│
+   │↳    `vine` Bool,                                                              ↴│
+   │↳    `verified_purchase` Bool,                                                 ↴│
+   │↳    `review_headline` String,                                                 ↴│
+   │↳    `review_body` String,                                                     ↴│
+   │↳    PROJECTION helpful_votes                                                  ↴│
+   │↳    (                                                                         ↴│
+   │↳        SELECT *                                                              ↴│
+   │↳        ORDER BY helpful_votes                                                ↴│
+   │↳    )                                                                         ↴│
+   │↳)                                                                             ↴│
+   │↳ENGINE = ReplicatedMergeTree('/clickhouse/tables/amazon_reviews', '{replica}')↴│
+   │↳ORDER BY (review_date, product_category)                                      ↴│
+   │↳TTL review_date + toIntervalDay(7)                                            ↴│
+   │↳SETTINGS index_granularity = 8192                                              │
+   └────────────────────────────────────────────────────────────────────────────────┘
+
+1 row in set. Elapsed: 0.002 sec.
+
+clickhouse-01 :)
+
+```
 
 
 

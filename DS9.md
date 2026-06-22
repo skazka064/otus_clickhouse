@@ -315,7 +315,155 @@ star_rating:       5
 
 ````
 
+### Проделываю тоже самое с clickhouse-03
 
+```
+
+clickhouse-03 :) SELECT * FROM system.macros;
+
+SELECT *
+FROM system.macros
+
+Query id: 2c8d9773-1fbf-4d85-a906-adfd586cb9c6
+
+   ┌─macro───┬─substitution──┐
+1. │ replica │ clickhouse-03 │
+2. │ shard   │ 01            │
+   └─────────┴───────────────┘
+
+2 rows in set. Elapsed: 0.002 sec.
+
+clickhouse-03 :) CREATE TABLE amazon_reviews_repl
+:-] (
+:-]     `review_date` Date,
+:-]     `marketplace` LowCardinality(String),
+:-]     `customer_id` UInt64,
+:-]     `review_id` String,
+:-]     `product_id` String,
+:-]     `product_parent` UInt64,
+:-]     `product_title` String,
+:-]     `product_category` LowCardinality(String),
+:-]     `star_rating` UInt8,
+:-]     `helpful_votes` UInt32,
+:-]     `total_votes` UInt32,
+:-]     `vine` Bool,
+:-]     `verified_purchase` Bool,
+:-]     `review_headline` String,
+:-]     `review_body` String,
+:-]     PROJECTION helpful_votes
+:-]     (
+:-]         SELECT *
+:-]         ORDER BY helpful_votes
+:-]     )
+:-] )
+:-] ENGINE = ReplicatedMergeTree(
+:-]     '/clickhouse/tables/amazon_reviews',  -- путь в ZooKeeper
+:-]     '{replica}'                                            -- имя реплики
+:-] )
+:-] ORDER BY (review_date, product_category);
+
+CREATE TABLE amazon_reviews_repl
+(
+    `review_date` Date,
+    `marketplace` LowCardinality(String),
+    `customer_id` UInt64,
+    `review_id` String,
+    `product_id` String,
+    `product_parent` UInt64,
+    `product_title` String,
+    `product_category` LowCardinality(String),
+    `star_rating` UInt8,
+    `helpful_votes` UInt32,
+    `total_votes` UInt32,
+    `vine` Bool,
+    `verified_purchase` Bool,
+    `review_headline` String,
+    `review_body` String,
+    PROJECTION helpful_votes
+    (
+        SELECT *
+        ORDER BY helpful_votes
+    )
+)
+ENGINE = ReplicatedMergeTree('/clickhouse/tables/amazon_reviews', '{replica}')
+ORDER BY (review_date, product_category)
+
+Query id: b4477904-cd7d-4359-b68d-3dd2fcce43c8
+
+Ok.
+
+0 rows in set. Elapsed: 0.073 sec.
+
+clickhouse-03 :) select * from amazon_reviews_repl limit 3
+
+SELECT *
+FROM amazon_reviews_repl
+LIMIT 3
+
+Query id: 07f9c7b9-8e3f-44f2-8591-6f451e0c8bde
+
+Row 1:
+──────
+review_date:       1995-06-24
+marketplace:       US
+customer_id:       53096571 -- 53.10 million
+review_id:         RHL4UW17ZK72A
+product_id:        0521314925
+product_parent:    980601331 -- 980.60 million
+product_title:     Invention and Evolution:Design in Nature and Engineering
+product_category:  Books
+star_rating:       5
+helpful_votes:     9
+total_votes:       9
+vine:              false
+verified_purchase: false
+review_headline:   BUY THIS BOOK!
+review_body:       This is a beautiful book.  French talks about energy, form, mechanism, and economy in natural and man-made things.  He compares birds to planes in terms of fuel-capacity, energy  conversion efficiency, drag, etc.  He compares suspension   bridges and dinosaurs.  He p
+rovides examples of neat   inventions and the thought that has gone into them (every-  thing from steam-catapults to toy cars to grommets).  This  is &quot;How Things Work&quot; for the non-moron crowd.
+
+Row 2:
+──────
+review_date:       1995-06-24
+marketplace:       US
+customer_id:       53096571 -- 53.10 million
+review_id:         R34N4QWDXX58WB
+product_id:        0870210092
+product_parent:    442607382 -- 442.61 million
+product_title:     Arming and Fitting of English Ships of War, 1600-1815
+product_category:  Books
+star_rating:       4
+helpful_votes:     12
+total_votes:       13
+vine:              false
+verified_purchase: false
+review_headline:   good enough to understand all of Pat O'brien
+review_body:       Nice diags, lucid explanations of rigging, guns, hull, etc. A lot of the pics also appear in &quot;Nelson's Navy&quot;, so if you  have that, don't bother.
+
+Row 3:
+──────
+review_date:       1995-07-07
+marketplace:       US
+customer_id:       53096573 -- 53.10 million
+review_id:         RPLV77JZXG575
+product_id:        047194128X
+product_parent:    377091465 -- 377.09 million
+product_title:     Object-Oriented Type Systems
+product_category:  Books
+star_rating:       4
+helpful_votes:     4
+total_votes:       4
+vine:              false
+verified_purchase: false
+review_headline:   Good techniques, well written.
+review_body:       The best (and possibly only) book I've seen on the topic. I very much liked their approach of starting with a simplified language and adding the necessary features.  The algorithms are useful, well presented, and their  assumptions are laid out clearly.
+
+3 rows in set. Elapsed: 0.005 sec. Processed 1.00 thousand rows, 729.50 KB (209.68 thousand rows/s., 152.96 MB/s.)
+Peak memory usage: 1.42 MiB.
+
+clickhouse-03 :)
+
+
+```
 
 
 

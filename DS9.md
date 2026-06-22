@@ -464,7 +464,9 @@ clickhouse-03 :)
 
 
 ```
+
 ### Выполните запросы и отдайте результаты как 2 файла:
+
 ### https://github.com/skazka064/otus_clickhouse/blob/main/repl_data.json
 
 ### https://github.com/skazka064/otus_clickhouse/blob/main/data.json

@@ -43,8 +43,8 @@ select * from amazon_reviews limit 3
 
 |review_date|marketplace|customer_id|review_id|product_id|product_parent|product_title|product_category|star_rating|helpful_votes|total_votes|vine|verified_purchase|review_headline|review_body|
 |-----------|-----------|-----------|---------|----------|--------------|-------------|----------------|-----------|-------------|-----------|----|-----------------|---------------|-----------|
-|1995-06-24|US|53096571|RHL4UW17ZK72A|0521314925|980601331|Invention and Evolution:Design in Nature and Engineering|Books|5|9|9|false|false|BUY THIS BOOK!|This is a beautiful book.|
-|1995-06-24|US|53096571|R34N4QWDXX58WB|0870210092|442607382|Arming and Fitting of English Ships of War, 1600-1815|Books|4|12|13|false|false|good enough|
+|1995-06-24|US|53096571|RHL4UW17ZK72A|0521314925|980601331|Invention and Evolution:Design|Books|5|9|9|false|false|BUY THIS BOOK!|This is a beautiful book.|
+|1995-06-24|US|53096571|R34N4QWDXX58WB|0870210092|442607382|Arming and Fitting of |Books|4|12|13|false|false|good enough|
 |1995-07-07|US|53096573|RPLV77JZXG575|047194128X|377091465|Object-Oriented Type Systems|Books|4|4|4|false|false|Good techniques, well written.|The best 
 
 

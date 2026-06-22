@@ -465,8 +465,9 @@ clickhouse-03 :)
 
 ```
 ### Выполните запросы и отдайте результаты как 2 файла:
-https://github.com/skazka064/otus_clickhouse/blob/main/repl_data.json
-https://github.com/skazka064/otus_clickhouse/blob/main/data.json
+### https://github.com/skazka064/otus_clickhouse/blob/main/repl_data.json
+
+### https://github.com/skazka064/otus_clickhouse/blob/main/data.json
 
 ### Добавьте или выберите колонку с типом Date в таблице, добавьте TTL на таблицу «хранить последние 7 дней». 
 

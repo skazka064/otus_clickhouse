@@ -26,6 +26,7 @@ flowchart LR
     
     CH --> S[Superset<br>Дашборд]
     CH_Stream --> S
+```
 
 # Технологический стек проекта
 

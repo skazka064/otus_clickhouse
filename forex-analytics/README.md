@@ -29,7 +29,7 @@ flowchart LR
 ```
 
 ## Как это работает
-```
+```mermaid
 flowchart LR
     AF[Airflow] --> |Каждые 15 минут| T1[ticks]
     

@@ -135,7 +135,7 @@ yc compute instance create --name superset-01 ...
 
 
 ### Структура репозитория
-
+```
 forex-analytics/
 ├── README.md                 # Главное описание
 ├── CHANGELOG.md              # История изменений
@@ -156,4 +156,4 @@ forex-analytics/
     ├── setup_kafka.md
     └── setup_superset.md
 
-    
+ ```   

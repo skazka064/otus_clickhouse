@@ -28,7 +28,18 @@ flowchart LR
     CH_Stream --> S
 ```
 
-
+## Как это работает
+```
+flowchart LR
+    AF[Airflow] --> |Каждые 15 минут| T1[ticks]
+    
+    K[Kafka Topic<br>forex_ticks] --> Q[kafka_queue]
+    Q --> MV[kafka_to_ticks_kafka]
+    MV --> T2[ticks_kafka]
+    
+    T1 --> DB[(ClickHouse)]
+    T2 --> DB
+```
 
 # Технологический стек проекта
 

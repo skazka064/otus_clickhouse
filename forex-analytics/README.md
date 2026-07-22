@@ -134,5 +134,26 @@ yc compute instance create --name superset-01 ...
 | **ClickHouse** | Хранилище данных, выполнение SQL-запросов и аналитика |
 
 
+### Структура репозитория
+
+forex-analytics/
+├── README.md                 # Главное описание
+├── CHANGELOG.md              # История изменений
+├── architecture/             # Схемы архитектуры
+├── clickhouse/               # SQL-скрипты
+│   ├── schema.sql
+│   ├── predictions.sql
+│   └── metrics.sql
+├── airflow/                  # DAG
+│   └── forex_dag.py
+├── kafka/                    # Producer
+│   └── producer.py
+├── superset/                 # Экспорт дашборда
+│   └── dashboard_export.zip
+└── deployment/               # Инструкции
+    ├── setup_clickhouse.md
+    ├── setup_airflow.md
+    ├── setup_kafka.md
+    └── setup_superset.md
 
     

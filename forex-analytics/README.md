@@ -85,7 +85,7 @@ flowchart LR
 flowchart LR
     AF[Airflow] --> |Каждые 15 минут| T1[ticks]
     
-    K[Kafka Topic<br>forex_ticks] --> Q[kafka_queue]
+    K[Kafka Topic<br>forex_ticks] --> |Поток| Q[kafka_queue]
     Q --> MV[kafka_to_ticks_kafka]
     MV --> T2[ticks_kafka]
     

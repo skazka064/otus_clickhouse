@@ -1,46 +1,47 @@
 ```mermaid
-    subgraph "ИСТОЧНИКИ ДАННЫХ"
+graph TD
+    subgraph sources[Sources]
         A[Kafka forex_ticks]
-        DAG[Airflow DAG<br/>(раз в час)]
+        DAG[Airflow DAG hourly]
     end
 
-    subgraph "ПРИЁМ ДАННЫХ"
+    subgraph ingest[Ingest]
         B[kafka_queue]
         T[ticks]
     end
 
-    subgraph "ХРАНИЛИЩЕ"
+    subgraph storage[Storage]
         C[ticks_kafka]
     end
 
-    subgraph "ПРОГНОЗЫ"
+    subgraph predictions[Predictions]
         E[predictions_eur_usd]
         F[predictions_gbp_usd]
         G[predictions_usd_jpy]
     end
 
-    subgraph "ВИЗУАЛИЗАЦИЯ"
+    subgraph visualization[Visualization]
         H[latest_signals]
         I[Superset]
     end
 
-    A -->|автоматически| B
-    B -->|MV: kafka_to_ticks_kafka| C
+    A -->|auto| B
+    B -->|MV| C
     
-    DAG -->|INSERT раз в час| T
+    DAG -->|INSERT hourly| T
     
-    C -->|MV: mv_predictions_eur_usd| E
-    C -->|MV: mv_predictions_gbp_usd| F
-    C -->|MV: mv_predictions_usd_jpy| G
+    C -->|MV| E
+    C -->|MV| F
+    C -->|MV| G
     
-    E -->|VIEW: latest_signals| H
-    F -->|VIEW: latest_signals| H
-    G -->|VIEW: latest_signals| H
+    E -->|VIEW| H
+    F -->|VIEW| H
+    G -->|VIEW| H
     
-    H -->|данные для графиков| I
+    H -->|data| I
     
-    T -.->|не используется для прогнозов| I
-    T -.->|резервный источник| I
+    T -.->|not used| I
+    T -.->|backup| I
 
     style A fill:#f9f,stroke:#333,stroke-width:2px
     style DAG fill:#ff9,stroke:#333,stroke-width:2px

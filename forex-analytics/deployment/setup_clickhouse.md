@@ -1,4 +1,16 @@
 ```
+yc compute instance create \
+  --name clickhouse-01 \
+  --zone ru-central1-a \
+  --network-interface subnet-name=otus-subnet,nat-ip-version=ipv4 \
+  --create-boot-disk image-family=ubuntu-2204-lts,image-folder-id=standard-images,size=100 \
+  --cores 4 \
+  --core-fraction 100 \
+  --memory 8 \
+  --ssh-key ~/.ssh/id_ed25519.pub
+```
+
+```
 # 1. Добавьте официальный репозиторий
 apt update && sudo apt upgrade -y
 apt-get install -y apt-transport-https ca-certificates curl gnupg
@@ -13,3 +25,4 @@ sudo apt-get install -y clickhouse-server clickhouse-client
 # 3. Запустите сервис
 sudo systemctl start clickhouse-server
 sudo systemctl enable clickhouse-server
+```

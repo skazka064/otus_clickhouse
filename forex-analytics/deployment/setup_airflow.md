@@ -34,6 +34,10 @@ curl -LfO 'https://airflow.apache.org/docs/apache-airflow/stable/docker-compose.
 # 5. Создание папок для DAG и логов
 mkdir -p ./dags ./logs ./plugins ./config
 echo -e "AIRFLOW_UID=50000" > .env
+# Сгенерировали
+python3 -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"
+# Добавили
+echo "FERNET_KEY=ВАШ_СГЕНЕРИРОВАННЫЙ_КЛЮЧ" >> .env
 
 # 6. Инициализация Airflow
 docker compose up airflow-init

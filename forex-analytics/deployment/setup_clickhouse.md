@@ -62,6 +62,7 @@ sudo nano /etc/clickhouse-server/config.xml
 ```
 CREATE USER IF NOT EXISTS 'airflow_user' IDENTIFIED BY 'airflow_pass_2026';
 GRANT SELECT, INSERT, ALTER, CREATE, DROP, TRUNCATE, OPTIMIZE, SHOW ON *.* TO 'airflow_user';
+GRANT ALL ON forex_data.* TO 'airflow_user';
 ```
 
 ### Создание базы данных

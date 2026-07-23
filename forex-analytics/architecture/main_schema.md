@@ -40,8 +40,8 @@ graph TD
     
     H -->|data| I
     
-    T -.->|not used| I
-    T -.->|backup| I
+    T -.->|used| I
+    T -.->|---| I
 
     style A fill:#f9f,stroke:#333,stroke-width:2px
     style DAG fill:#ff9,stroke:#333,stroke-width:2px

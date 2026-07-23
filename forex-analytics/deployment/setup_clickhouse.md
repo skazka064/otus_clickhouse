@@ -60,8 +60,8 @@ sudo nano /etc/clickhouse-server/config.xml
 ### Создание пользователя для Airflow
 
 ```
-CREATE USER IF NOT EXISTS 'airflow_user01'@'%' IDENTIFIED BY 'airflow_pass_2025';
-GRANT ALL PRIVILEGES ON *.* TO 'airflow_user01'@'%' WITH GRANT OPTION;
+CREATE USER IF NOT EXISTS 'airflow_user' IDENTIFIED BY 'airflow_pass_2026';
+GRANT SELECT, INSERT, ALTER, CREATE, DROP, TRUNCATE, OPTIMIZE, SHOW ON *.* TO 'airflow_user';
 ```
 
 ### Создание базы данных
@@ -69,6 +69,10 @@ GRANT ALL PRIVILEGES ON *.* TO 'airflow_user01'@'%' WITH GRANT OPTION;
 ```
 CREATE DATABASE IF NOT EXISTS forex_data;
 ```
+
+
+
+
 
 
 

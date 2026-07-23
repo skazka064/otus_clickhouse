@@ -1,4 +1,4 @@
-graph TD
+```mermaid
     subgraph "ИСТОЧНИКИ ДАННЫХ"
         A[Kafka forex_ticks]
         DAG[Airflow DAG<br/>(раз в час)]
@@ -47,3 +47,4 @@ graph TD
     style C fill:#9f9,stroke:#333,stroke-width:2px
     style T fill:#9cf,stroke:#333,stroke-width:2px
     style H fill:#fc9,stroke:#333,stroke-width:2px
+```

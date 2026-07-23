@@ -43,4 +43,5 @@ sudo nano /etc/clickhouse-server/users.d/default-password.xml
 
 ```
 sudo systemctl restart clickhouse-server
+clickhouse-client --password your_password --query "SELECT version()"
 ```

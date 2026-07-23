@@ -56,13 +56,14 @@ sudo nano /etc/clickhouse-server/config.xml
 <listen_host>0.0.0.0</listen_host>
 ```
 
-```
+
 ### Создание пользователя для Airflow
 
 ```
 CREATE USER IF NOT EXISTS 'airflow_user01'@'%' IDENTIFIED BY 'airflow_pass_2025';
 GRANT ALL PRIVILEGES ON *.* TO 'airflow_user01'@'%' WITH GRANT OPTION;
 ```
+
 ### Создание базы данных
 
 ```

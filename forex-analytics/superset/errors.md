@@ -1,0 +1,6 @@
+sqlite3 /root/.superset/superset.db "DELETE FROM databases;"
+sqlite3 /root/.superset/superset.db ".tables"
+sqlite3 /root/.superset/superset.db "SELECT * FROM database;"
+sqlite3 /root/.superset/superset.db "SELECT * FROM dbs;"
+sqlite3 /root/.superset/superset.db "DELETE FROM dbs;"
+sqlite3 /root/.superset/superset.db "SELECT * FROM dbs;"

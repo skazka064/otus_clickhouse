@@ -40,8 +40,8 @@ graph TD
     
     H -->|data| I
     
-    T -.->|used| I
-    T -.->|---| I
+    T -.->|hourly| I
+   
 
     style A fill:#f9f,stroke:#333,stroke-width:2px
     style DAG fill:#ff9,stroke:#333,stroke-width:2px

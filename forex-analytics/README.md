@@ -40,7 +40,7 @@ flowchart LR
 | **Визуализация** | Apache Superset |
 | **Языки программирования** | Python 3.10, SQL |
 | **Облачная платформа** | Yandex Cloud |
-Облачная платформа	Yandex Cloud
+
 
 # Что умеет система
 

@@ -51,6 +51,10 @@ clickhouse-client --password your_password --query "SELECT version()"
 sudo nano /etc/clickhouse-server/config.xml
 ```
 
+```xml
+<listen_host>::</listen_host>
+<listen_host>0.0.0.0</listen_host>
+```
 
 
 

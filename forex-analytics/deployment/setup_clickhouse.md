@@ -26,3 +26,21 @@ sudo apt-get install -y clickhouse-server clickhouse-client
 sudo systemctl start clickhouse-server
 sudo systemctl enable clickhouse-server
 ```
+
+```
+sudo nano /etc/clickhouse-server/users.d/default-password.xml
+```
+
+```xml
+<clickhouse>
+    <users>
+        <default>
+            <password>your_password</password>
+        </default>
+    </users>
+</clickhouse>
+```
+
+```
+sudo systemctl restart clickhouse-server
+```

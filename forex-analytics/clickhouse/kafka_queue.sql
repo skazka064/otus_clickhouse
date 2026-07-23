@@ -1,4 +1,5 @@
-## Очередь для Kafka
+## Назначение: Читает данные из Kafka топика forex_ticks.
+## Роль в пайплайне: Kafka → kafka_queue → ticks_kafka
 
 CREATE TABLE forex_data.kafka_queue
 (

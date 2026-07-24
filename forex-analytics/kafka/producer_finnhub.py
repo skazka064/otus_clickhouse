@@ -46,11 +46,11 @@ def on_open(ws):
     pairs = ['OANDA:EUR_USD', 'OANDA:GBP_USD', 'OANDA:USD_JPY']
     for pair in pairs:
         ws.send(json.dumps({'type': 'subscribe', 'symbol': pair}))
-        print(f"📡 Subscribed to {pair}")
+        print(f" Subscribed to {pair}")
 
 # ===== Запуск =====
 if __name__ == '__main__':
-    print("🚀 Starting Finnhub WebSocket Producer (Forex)...")
+    print(" Starting Finnhub WebSocket Producer (Forex)...")
     ws = websocket.WebSocketApp(
         f'wss://ws.finnhub.io?token={API_KEY}',
         on_open=on_open,

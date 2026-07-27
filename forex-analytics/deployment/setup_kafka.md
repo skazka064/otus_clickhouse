@@ -8,6 +8,7 @@ yc compute instance create \
   --memory 4 \
   --ssh-key .ssh/yc/id_rsa.pub
 
+```
    cat > docker-compose.yml << 'EOF'
     6  version: '3'
     7  services:
@@ -34,4 +35,4 @@ yc compute instance create \
    28        KAFKA_NODE_ID: 1
    29        KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka:9093
    30  EOF
-
+```

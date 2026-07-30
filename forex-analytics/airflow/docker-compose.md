@@ -94,7 +94,7 @@ Developer → upload DAG → dags folder
 
     "Dag-Processor — это компонент, который постоянно сканирует папку dags. Когда он находит новый или изменённый файл, он парсит его и сохраняет информацию о DAG в базу данных PostgreSQL. Это нужно, чтобы Scheduler знал, какие задачи и когда запускать."
 
-text
+
 
 Dag-Processor → scan → dags folder
 Dag-Processor → parse → PostgreSQL
@@ -103,7 +103,7 @@ Dag-Processor → parse → PostgreSQL
 
     "Scheduler — это сердце Airflow. Он постоянно читает расписание из базы данных и определяет, какие задачи пора запустить. Когда наступает время, он создаёт задачу и отправляет её в очередь Redis. После выполнения задачи Scheduler обновляет её статус в базе данных."
 
-text
+
 
 Scheduler → read schedule → PostgreSQL
 Scheduler → create tasks → Redis
@@ -113,7 +113,7 @@ Scheduler → update status → PostgreSQL
 
     "Redis работает как промежуточное хранилище — очередь задач. Scheduler складывает сюда задачи, а воркеры их забирают. Это позволяет нам масштабировать систему: если задач становится много, мы просто добавляем новых воркеров."
 
-text
+
 
 Redis → take tasks → Worker 1, Worker 2, Worker N
 
@@ -121,7 +121,7 @@ Redis → take tasks → Worker 1, Worker 2, Worker N
 
     "Воркеры — это те, кто реально выполняет работу. Каждый воркер забирает задачу из Redis, выполняет её (например, загружает данные из API), пишет логи в файл и сохраняет результат в базу данных PostgreSQL. У нас может быть несколько воркеров, работающих параллельно."
 
-text
+
 
 Worker → execute → dags folder
 Worker → write logs → Logs
@@ -131,7 +131,7 @@ Worker → save result → PostgreSQL
 
     "Web Server — это то, что видит пользователь. Он читает информацию о DAG и задачах из базы данных и отображает её в виде веб-интерфейса. Через этот интерфейс пользователь может управлять DAG: запускать, останавливать, смотреть логи."
 
-text
+
 
 Web Server → read → PostgreSQL
 Web Server → display → Web UI
@@ -140,7 +140,7 @@ Web Server → display → Web UI
 
     "Пользователь через веб-интерфейс может управлять DAG — например, запустить задачу вручную, если нужно. Это даёт гибкость и контроль над процессом."
 
-text
+
 
 Web UI → manage → Developer
 
@@ -148,7 +148,7 @@ Web UI → manage → Developer
 
     "Flower — это дополнительный инструмент для мониторинга Redis. Он показывает, сколько задач в очереди, какие воркеры заняты, есть ли ошибки. Это помогает администратору следить за состоянием системы."
 
-text
+
 
 Flower → monitor → Redis
 Flower → show → Web UI

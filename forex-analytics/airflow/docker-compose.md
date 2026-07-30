@@ -53,54 +53,20 @@ graph TD
 ```
 
 graph TD
-    subgraph User["User"]
-        Dev["Developer"]
-        Ui["Web UI"]
-    end
-
-    subgraph Core["Airflow Core"]
-        Sch["Scheduler"]
-        Proc["Dag Processor"]
-        Web["Web Server"]
-    end
-
-    subgraph Exec["Execution"]
-        Redis["Redis Queue"]
-        W1["Worker 1"]
-        W2["Worker 2"]
-        W3["Worker N"]
-    end
-
-    subgraph Storage["Storage"]
-        Pg[("PostgreSQL")]
-        Dags["DAGs Folder"]
-        Logs["Logs"]
-    end
-
-    subgraph Monitor["Monitoring"]
-        Flower["Flower"]
-    end
-
-    Dev -->|upload| Dags
-    Proc -->|scan| Dags
-    Proc -->|parse| Pg
-
-    Sch -->|read schedule| Pg
-    Sch -->|create tasks| Redis
-    Sch -->|update status| Pg
-
-    Redis -->|take| W1
-    Redis -->|take| W2
-    Redis -->|take| W3
-
-    W1 -->|execute| Dags
-    W1 -->|write| Logs
-    W1 -->|save| Pg
-
-    Web -->|read| Pg
-    Web -->|display| Ui
-    Ui -->|manage| Dev
-
-    Flower -->|monitor| Redis
-    Flower -->|show| Ui
-    
+    DEV["Developer"] -->|upload DAG| DAGS["dags/ folder"]
+    PROC["Dag-Processor"] -->|scan| DAGS
+    PROC -->|parse| PG[("PostgreSQL")]
+    SCH["Scheduler"] -->|read schedule| PG
+    SCH -->|create tasks| REDIS["Redis"]
+    SCH -->|update status| PG
+    REDIS -->|take tasks| W1["Worker 1"]
+    REDIS -->|take tasks| W2["Worker 2"]
+    REDIS -->|take tasks| W3["Worker N"]
+    W1 -->|execute| DAGS
+    W1 -->|write logs| LOGS["Logs"]
+    W1 -->|save result| PG
+    WEB["Web Server"] -->|read| PG
+    WEB -->|display| UI["Web UI"]
+    UI -->|manage| DEV
+    FLOWER["Flower"] -->|monitor| REDIS
+    FLOWER -->|show| UI

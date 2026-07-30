@@ -54,6 +54,7 @@ curl -s "https://...jpy" > /tmp/usd_jpy.json
 ```
 
 -- Таблица в ClickHouse
+```
 CREATE TABLE forex_data.ticks (
     symbol   String,     -- 'EUR/USD', 'GBP/USD', 'USD/JPY'
     bid      Float64,    -- Цена покупки (спред -0.1%)
@@ -61,13 +62,16 @@ CREATE TABLE forex_data.ticks (
     timestamp DateTime   -- Время загрузки
 ) ENGINE = MergeTree()
 ORDER BY (symbol, timestamp);
+```
 
 -- Пример вставки
+```
 INSERT INTO forex_data.ticks (symbol, bid, ask, timestamp)
 VALUES 
     ('EUR/USD', 1.1234, 1.1245, '2026-07-23 14:00:00'),
     ('GBP/USD', 1.2987, 1.2998, '2026-07-23 14:00:00'),
     ('USD/JPY', 149.876, 149.987, '2026-07-23 14:00:00');
+```
 
 5. Текст для устного доклада
 Вступление (30 секунд):

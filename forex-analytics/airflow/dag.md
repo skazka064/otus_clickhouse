@@ -14,6 +14,7 @@ if invert:
     rate = 1 / rate  # 0.85 → 1.17
 
 
+```
 
     # Почему инверсия?
 # Alpha Vantage отдаёт: 1 USD = 0.85 EUR

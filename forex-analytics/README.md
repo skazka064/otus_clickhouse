@@ -150,16 +150,15 @@ yc compute instance create --name superset-01 ...
 ```
 forex-analytics/
 ├── README.md                 # Главное описание
-├── CHANGELOG.md              # История изменений
 ├── architecture/             # Схемы архитектуры
 ├── clickhouse/               # SQL-скрипты
 │   ├── schema.sql
 │   ├── predictions.sql
 │   └── metrics.sql
 ├── airflow/                  # DAG
-│   └── forex_dag.py
+│   └── forex_alpha_hourly.py
 ├── kafka/                    # Producer
-│   └── producer.py
+│   └── producer_finnhub.py
 ├── superset/                 # Экспорт дашборда
 │   └── dashboard_export.zip
 └── deployment/               # Инструкции

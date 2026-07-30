@@ -51,9 +51,9 @@ graph TD
     SCH -->|метаданные| PG
     TRIG -->|отложенные задачи| WORKER
 ```
-
+```mermaid
 graph TD
-    DEV["Developer"] -->|upload DAG| DAGS["dags/ folder"]
+    DEV["Developer"] -->|upload DAG| DAGS["dags folder"]
     PROC["Dag-Processor"] -->|scan| DAGS
     PROC -->|parse| PG[("PostgreSQL")]
     SCH["Scheduler"] -->|read schedule| PG
@@ -70,3 +70,4 @@ graph TD
     UI -->|manage| DEV
     FLOWER["Flower"] -->|monitor| REDIS
     FLOWER -->|show| UI
+```

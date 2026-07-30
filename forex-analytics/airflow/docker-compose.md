@@ -52,7 +52,7 @@ graph TD
     TRIG -->|отложенные задачи| WORKER
 ```
 
-```mermaid
+graph TD
     subgraph USER[Пользователь]
         DEV[Разработчик]
         UI[Веб-интерфейс]
@@ -110,5 +110,4 @@ graph TD
     style W1 fill:#9f9,stroke:#333,stroke-width:2px
     style W2 fill:#9f9,stroke:#333,stroke-width:2px
     style W3 fill:#9f9,stroke:#333,stroke-width:2px
-    ```
 

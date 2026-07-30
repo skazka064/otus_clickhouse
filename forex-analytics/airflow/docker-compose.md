@@ -53,61 +53,54 @@ graph TD
 ```
 
 graph TD
-    subgraph USER["Пользователь"]
-        DEV["Разработчик"]
-        UI["Веб-интерфейс"]
+    subgraph User["User"]
+        Dev["Developer"]
+        Ui["Web UI"]
     end
 
-    subgraph CORE["Ядро Airflow"]
-        SCH["Scheduler<br/>Планировщик"]
-        PROC["Dag-Processor<br/>Обработчик DAG"]
-        WEB["Web Server<br/>API + UI"]
+    subgraph Core["Airflow Core"]
+        Sch["Scheduler"]
+        Proc["Dag Processor"]
+        Web["Web Server"]
     end
 
-    subgraph EXEC["Исполнение"]
-        REDIS["Redis<br/>Очередь задач"]
+    subgraph Exec["Execution"]
+        Redis["Redis Queue"]
         W1["Worker 1"]
         W2["Worker 2"]
         W3["Worker N"]
     end
 
-    subgraph STORAGE["Хранилище"]
-        PG[("PostgreSQL<br/>Метаданные")]
-        DAGS["Папка dags/<br/>.py файлы"]
-        LOGS["Логи задач"]
+    subgraph Storage["Storage"]
+        Pg[("PostgreSQL")]
+        Dags["DAGs Folder"]
+        Logs["Logs"]
     end
 
-    subgraph MONITOR["Мониторинг"]
-        FLOWER["Flower<br/>Dashboard"]
+    subgraph Monitor["Monitoring"]
+        Flower["Flower"]
     end
 
-    DEV -->|1. Загружает DAG| DAGS
-    PROC -->|2. Сканирует| DAGS
-    PROC -->|3. Парсит| PG
+    Dev -->|upload| Dags
+    Proc -->|scan| Dags
+    Proc -->|parse| Pg
 
-    SCH -->|4. Читает расписание| PG
-    SCH -->|5. Создаёт задачи| REDIS
-    SCH -->|6. Обновляет статус| PG
+    Sch -->|read schedule| Pg
+    Sch -->|create tasks| Redis
+    Sch -->|update status| Pg
 
-    REDIS -->|7. Забирает задачи| W1
-    REDIS -->|7. Забирает задачи| W2
-    REDIS -->|7. Забирает задачи| W3
+    Redis -->|take| W1
+    Redis -->|take| W2
+    Redis -->|take| W3
 
-    W1 -->|8. Выполняет| DAGS
-    W1 -->|9. Пишет логи| LOGS
-    W1 -->|10. Сохраняет результат| PG
+    W1 -->|execute| Dags
+    W1 -->|write| Logs
+    W1 -->|save| Pg
 
-    WEB -->|11. Читает| PG
-    WEB -->|12. Отображает| UI
-    UI -->|13. Управление| DEV
+    Web -->|read| Pg
+    Web -->|display| Ui
+    Ui -->|manage| Dev
 
-    FLOWER -->|14. Мониторит| REDIS
-    FLOWER -->|15. Показывает| UI
-
-    style SCH fill:#ff9,stroke:#333,stroke-width:2px
-    style REDIS fill:#f9f,stroke:#333,stroke-width:2px
-    style PG fill:#9cf,stroke:#333,stroke-width:2px
-    style W1 fill:#9f9,stroke:#333,stroke-width:2px
-    style W2 fill:#9f9,stroke:#333,stroke-width:2px
-    style W3 fill:#9f9,stroke:#333,stroke-width:2px
+    Flower -->|monitor| Redis
+    Flower -->|show| Ui
     

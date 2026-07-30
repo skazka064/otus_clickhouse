@@ -16,9 +16,8 @@
 
 Архитектура построена на двух параллельных каналах обработки данных: **потоковом** и **пакетном**.
 
-```mermaid
 graph TD
-    subgraph sources["1️⃣ ПОТОКОВЫЙ СИГНАЛ (Kafka)"]
+    subgraph sources["1️⃣ STREAMING SIGNAL (Kafka)"]
         A[Kafka forex_ticks] --> B[kafka_queue]
         B -->|MV| C[ticks_kafka]
         C -->|MV| E[predictions_eur_usd]
@@ -26,15 +25,14 @@ graph TD
         H -->|BUY/SELL| I[Superset]
     end
 
-    subgraph dag["2️⃣ ТРЕНДОВОЕ ПОДТВЕРЖДЕНИЕ (Airflow)"]
+    subgraph dag["2️⃣ TREND CONFIRMATION (Airflow)"]
         DAG[Airflow DAG hourly] -->|INSERT| T[ticks]
         T -->|hourly trend| I
     end
 
-    subgraph decision["🎯 ПРИНЯТИЕ РЕШЕНИЙ"]
-        I -->|Анализ: сигнал + тренд| Decision[Торговое решение]
+    subgraph decision["🎯 DECISION MAKING"]
+        I -->|signal + trend| Decision[Trade Decision]
     end
-
 
 ### Kafka
 Producer — это Python-скрипт, который работает как мост между внешним API и нашей системой.

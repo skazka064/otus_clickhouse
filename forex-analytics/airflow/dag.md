@@ -51,7 +51,7 @@ curl -s "https://...gbp" > /tmp/gbp_usd.json
 sleep 2  # Ждём 2 секунды перед следующим запросом
 
 curl -s "https://...jpy" > /tmp/usd_jpy.json
-
+```
 
 -- Таблица в ClickHouse
 CREATE TABLE forex_data.ticks (

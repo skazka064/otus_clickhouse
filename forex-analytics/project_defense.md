@@ -33,7 +33,6 @@ graph TD
     subgraph decision["🎯 DECISION MAKING"]
         I -->|signal + trend| Decision[Trade Decision]
     end
-
 ### Kafka
 Producer — это Python-скрипт, который работает как мост между внешним API и нашей системой.
 Он постоянно слушает WebSocket Finnhub и каждое обновление курса отправляет в Kafka. 

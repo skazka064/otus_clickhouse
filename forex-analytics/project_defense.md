@@ -103,6 +103,22 @@
 | Задержка обновления сигнала | **2-3 секунды** |
 | Время выполнения прогноза | **< 1 мс** |
 
+### Проверка работы системы
+
+```
+SELECT 
+    'ticks (Airflow)' AS source,
+    COUNT(*) AS rows,
+    MAX(timestamp) AS last
+FROM forex_data.ticks
+UNION ALL
+SELECT 
+    'ticks_kafka (Kafka)' AS source,
+    COUNT(*) AS rows,
+    MAX(timestamp) AS last
+FROM forex_data.ticks_kafka;
+```
+
 ## 6. Заключение (1 минута)
 
 *«В перспективе систему можно развивать:

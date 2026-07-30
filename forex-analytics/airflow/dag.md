@@ -1,18 +1,18 @@
+## Инверсия валютных курсов
 
-graph LR
-    A[Alpha Vantage API] -->|3 запроса| B[curl]
-    B -->|EUR/USD| C[/tmp/eur_usd.json]
-    B -->|GBP/USD| D[/tmp/gbp_usd.json]
-    B -->|USD/JPY| E[/tmp/usd_jpy.json]
-    
-    C --> F[Python парсер]
-    D --> F
-    E --> F
-    
-    F -->|INSERT| G[ClickHouse<br/>forex_data.ticks]
-    
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style G fill:#9f9,stroke:#333,stroke-width:2px
+Alpha Vantage отдаёт курсы в формате **USD → Валюта**, но для торговли нам нужны привычные котировки:
+
+| Валюта | Что отдаёт API | Что нам нужно | Преобразование |
+|--------|----------------|---------------|----------------|
+| **EUR/USD** | 1 USD = 0.85 EUR | 1 EUR = 1.17 USD | `rate = 1 / rate` |
+| **GBP/USD** | 1 USD = 0.77 GBP | 1 GBP = 1.30 USD | `rate = 1 / rate` |
+| **USD/JPY** | 1 USD = 149.87 JPY | 1 USD = 149.87 JPY | `rate = rate` (без изменений) |
+
+```python
+# Инвертируем курс для EUR/USD и GBP/USD
+if invert:
+    rate = 1 / rate  # 0.85 → 1.17
+
 
 
     # Почему инверсия?

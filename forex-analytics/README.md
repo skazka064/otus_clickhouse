@@ -161,7 +161,7 @@ forex-analytics/
 │   └── producer_finnhub.py
 ├── superset/                 # Экспорт дашборда
 │   └── dashboard_export.zip
-└── deployment/               # Инструкции
+└── deployment/               # Инструкции по развертыванию
     ├── setup_clickhouse.md
     ├── setup_airflow.md
     ├── setup_kafka.md

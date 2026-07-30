@@ -152,9 +152,15 @@ forex-analytics/
 ├── README.md                 # Главное описание
 ├── architecture/             # Схемы архитектуры
 ├── clickhouse/               # SQL-скрипты
-│   ├── schema.sql
-│   ├── predictions.sql
-│   └── metrics.sql
+│   ├── data_volume.sql
+│   ├── kafka_queue.sql
+|   ├── kafka_to_ticks_kafka.sql
+|   ├── latest_signals_eur_usd_jpy.sql
+|   ├── mv_predictions_eur_usd_jpy.sql
+|   ├── predictions_eur_usd_gpb_jpy.sql
+|   ├── recreate.sql
+|   ├── ticks.sql
+│   └── ticks_kafka.sql
 ├── airflow/                  # DAG
 │   └── forex_alpha_hourly.py
 ├── kafka/                    # Producer
